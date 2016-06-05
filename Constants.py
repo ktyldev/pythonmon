@@ -11,3 +11,8 @@ class Constants:
 	TILE_LAYER = 7
 	PLAYER_LAYER = 8
 	PLAYER_NAME = 'player'
+
+	NORTH = 0
+	EAST = 1
+	SOUTH = 2
+	WEST = 3

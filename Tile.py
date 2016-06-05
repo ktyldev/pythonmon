@@ -52,6 +52,7 @@ class TileManager():
 
 		Logger.log('Tiles created: ' + str(tile_count))
 
+	@staticmethod
 	def get_tile_neighbour(tile_id, tile_direction):
 
 		size = TileManager._tile_size

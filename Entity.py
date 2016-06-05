@@ -25,6 +25,7 @@ class Entity:
 		self.y = y
 		self.child_entities = []
 		self.components = []
+		self.target = None
 
 		Entity.List.append(self)
 
