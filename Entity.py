@@ -7,6 +7,13 @@ class Entity:
 
 	List = []
 
+	@staticmethod
+	def find(name):
+		for entity in Entity.List:
+			if entity.name == name:
+				return entity
+		return None
+
 	def __init__(self, name, image, layer, x = 0, y = 0):
 		if image == '':
 			image = Constants.BLANK_IMAGE_FILE

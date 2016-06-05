@@ -44,15 +44,20 @@
     <Compile Include="TestEntity.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tile.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="_Resources\" />
     <Folder Include="_Resources\Images\" />
+    <Folder Include="_Resources\Images\UI\" />
     <Folder Include="_Resources\Images\Overworld\" />
     <Folder Include="_Resources\Images\Overworld\Characters\Player\" />
     <Folder Include="_Resources\Images\Overworld\Map\" />
     <Folder Include="_Resources\Images\Overworld\Map\Background\" />
     <Folder Include="_Resources\Images\Overworld\Characters\" />
+    <Folder Include="_Resources\Images\UI\Debug\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="_Resources\Images\blank.png" />

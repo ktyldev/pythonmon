@@ -8,5 +8,6 @@ class Constants:
 
 	PLAYER_SPRITE_FOLDER_PATH = '_Resources/Images/Overworld/Characters/Player/'
 
+	TILE_LAYER = 7
 	PLAYER_LAYER = 8
 	PLAYER_NAME = 'player'

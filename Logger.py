@@ -1,7 +1,7 @@
-
+from Configuration import Configuration
 
 class Logger:
-	_state = False
+	_state = Configuration.log_all
 	
 	@staticmethod
 	def log(text):
