@@ -4,6 +4,7 @@ from Logger import Logger
 from Constants import Constants
 from Entity import Entity
 from Configuration import Configuration
+from Component import GraphicsComponent
 
 from Tile import *
 
@@ -21,25 +22,18 @@ class Gui:
 		# clear the screen
 		Gui._screen.fill(Constants.BLACK)
 
-		entities_to_draw = []
-
 		for layer in range(0, Gui._layer_limit):
-			
-			for entity in Entity.List:
-				if entity.layer == layer:
-					entities_to_draw.append(entity)
+
+			for graphics_component in GraphicsComponent.List:
+				if graphics_component.layer == layer:
+					Gui._screen.blit(graphics_component.surface, (graphics_component.draw_x, graphics_component.draw_y))
+
+					if Gui._log_drawing:
+						Logger.log('Drawing entity ' + entity.name + ' on layer ' + str(layer))
 			
 			if Gui._draw_tiles:
 				for tile in TileManager.List:
 					pygame.draw.rect(Gui._screen, [255, 0, 0], tile)
-
-
-			for entity in entities_to_draw:
-				Gui._screen.blit(entity.surface, (entity.x, entity.y))
-				if Gui._log_drawing:
-					Logger.log('Drawing entity ' + entity.name + ' on layer ' + str(layer))
-
-			entities_to_draw = []	
 
 		# update the display
 		pygame.display.flip()

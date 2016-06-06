@@ -14,13 +14,8 @@ class Entity:
 				return entity
 		return None
 
-	def __init__(self, name, image, layer, x = 0, y = 0):
-		if image == '':
-			image = Constants.BLANK_IMAGE_FILE
-
-		self.surface = pygame.image.load(image)
+	def __init__(self, name, x = 0, y = 0):
 		self.name = name
-		self.layer = layer
 		self.x = x
 		self.y = y
 		self.child_entities = []
@@ -40,9 +35,9 @@ class Entity:
 			if component.enabled:
 				component.update()
 
-class Player(Entity):
-	def __init__(self, image, x = 0, y = 0):
-		Entity.__init__(self, Constants.PLAYER_NAME, image, Constants.PLAYER_LAYER, x, y)
+#class Player(Entity):
+#	def __init__(self, image, x = 0, y = 0):
+#		Entity.__init__(self, Constants.PLAYER_NAME, image, Constants.PLAYER_LAYER, x, y)
 			
 
 

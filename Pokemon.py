@@ -29,16 +29,19 @@ class Program:
 		ticks = 0
 		gui_ticks = 0
 
+		# Initialise entities
+		overworld = Entity('background')
+		player = Entity('player', 160, 160)
 
-		# Initialise map
-		overworld = Entity('background', Constants.BACKGROUND_FOLDER_PATH + 'pallet-town.png', 0)
+		# Initialise components
+		overworld.components.append(GraphicsComponent(overworld, Constants.BACKGROUND_FOLDER_PATH + 'pallet-town.png', 0))
+		
+		player.components.append(GraphicsComponent(player, Constants.PLAYER_SPRITE_FOLDER_PATH + 'player.png', Constants.PLAYER_LAYER))
+		player.components.append(MovementComponent(player, 1))
 
 		# Initialise tile engine
-		TileManager.load_tiles(overworld.surface.get_rect())
+		TileManager.load_tiles(overworld.get_component('graphics').surface.get_rect())
 
-		# Initialise game objects
-		player = Player(Constants.PLAYER_SPRITE_FOLDER_PATH + 'player.png', 160, 160)
-		player.components.append(MovementComponent(player, 1))
 # LOOP ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 		while True:
