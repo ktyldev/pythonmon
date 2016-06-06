@@ -1,6 +1,6 @@
 # pythonmon
 
-Pythonmon is an attempt at replicating the game engine of the [3rd generation Pokemon games](http://pokemon.wikia.com/wiki/Generation_III) an to provide a data-based interface to allow map building and scripting game object behaviours without have to edit the source code.
+Pythonmon is an attempt at replicating the game engine of the [3rd generation Pokemon games](http://pokemon.wikia.com/wiki/Generation_III) and to provide a data-based interface to allow map building and scripting game object behaviours without have to edit the source code.
 
 * [Python 3.5.1](https://www.python.org/downloads/)
 * [Pygame for Python 3.5](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pygame)
