@@ -22,7 +22,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Component.py">
+    <Compile Include="Components\Component.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components\GraphicsComponent.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components\MovementComponent.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Configuration.py">
@@ -55,6 +61,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Components\" />
     <Folder Include="_Resources\" />
     <Folder Include="_Resources\Images\" />
     <Folder Include="_Resources\Images\UI\" />
