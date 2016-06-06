@@ -3,6 +3,8 @@ import pygame
 from Tile import *
 from Helpers import Helpers
 from Logger import Logger
+from Input import *
+
 
 class Component:
 
@@ -24,6 +26,7 @@ class Component:
     def update(self):
         return
 
+
 class GraphicsComponent(Component):
 
     List = []
@@ -42,6 +45,7 @@ class GraphicsComponent(Component):
         Component.update(self)
         self.draw_x = self.entity.x
         self.draw_y = self.entity.y
+
 
 class MovementComponent(Component):
     def __init__(self, entity, movement_speed):
@@ -81,11 +85,15 @@ class MovementComponent(Component):
         if self.target_pos:
             self.move()
 
+
 class InputComponent(Component):
-    def __init(self, entity):
+    def __init__(self, entity):
         Component.__init__(self, entity, 'input')
         self.continuous_input = None
         self.event_input = None
 
     def update(self):
         Component.update(self)
+
+        self.event_input = InputHandler.current_event
+        self.continuous_input = InputHandler.current_continuous

@@ -1,15 +1,6 @@
 import pygame
 import sys
 
-class InputData:
-    def __init__(self, movement_key, action_key):
-        self.movement_key = movement_key
-        self.action_key = action_key
-
-class EventData:
-    def __init__(self, key, state):
-        self.key = key
-        self.state = state
 
 class InputType:
     A = 0
@@ -22,60 +13,14 @@ class InputType:
     DOWN = 7
     NONE = 8
 
+
 class InputHandler:
-    @staticmethod
-    def get_input_state(event_type):
-        if event_type == pygame.KEYDOWN:
-            return 'down'
-        elif event_type == pygame.KEYUP:
-            return 'up'
-        else:
-            return 'none'
-        
-    @staticmethod
-    def get_input_type(event_key):
-        result = InputType.NONE
 
-        if event_key == pygame.K_z:
-            result = InputType.A
-        elif event_key == pygame.K_x:
-            result = InputType.B
-        elif event_key == pygame.K_c:
-            result = InputType.START
-        elif event_key == pygame.K_v:
-            result = InputType.SELECT
-        elif event_key == pygame.K_LEFT:
-            result = InputType.LEFT
-        elif event_key == pygame.K_UP:
-            result = InputType.UP
-        elif event_key == pygame.K_RIGHT:
-            result = InputType.RIGHT
-        elif event_key == pygame.K_DOWN:
-            result = InputType.DOWN
-        
-        return result
+    current_event = None
+    current_continuous = None
 
     @staticmethod
-    def get_event_data():
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
-            state = InputHandler.get_input_state(event.type)
-
-            if state == 'none':
-                break
-
-            key = InputHandler.get_input_type(event.key)
-
-            if key == InputType.NONE:
-                break
-
-            return EventData(key, state)
-
-    @staticmethod
-    def get_continuous_data():
+    def event_tick():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -84,28 +29,30 @@ class InputHandler:
 
         keys = pygame.key.get_pressed()
 
-        movement_key = InputType.NONE
-        action_key = InputType.NONE
-        
-        if keys[pygame.K_UP]:
-            movement_key = InputType.UP
-        elif keys[pygame.K_RIGHT]:
-            movement_key = InputType.RIGHT
-        elif keys[pygame.K_DOWN]:
-            movement_key = InputType.DOWN
-        elif keys[pygame.K_LEFT]:
-            movement_key = InputType.LEFT
-
         if keys[pygame.K_z]:
-            action_key = InputType.A
+            InputHandler.current_event = InputType.A
         elif keys[pygame.K_x]:
-            action_key = InputType.B
+            InputHandler.current_event = InputType.B
         elif keys[pygame.K_c]:
-            action_key = InputType.START
-        elif keys[pygame.K_v]:	
-            action_key = InputType.SELECT
+            InputHandler.current_event = InputType.START
+        elif keys[pygame.K_v]:
+            InputHandler.current_event = InputType.SELECT
 
-        if action_key == InputType.NONE and movement_key == InputType.NONE:
-            return
+    @staticmethod
+    def gui_tick():
 
-        return InputData(movement_key, action_key)
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_UP]:
+            InputHandler.current_continuous = InputType.UP
+        elif keys[pygame.K_RIGHT]:
+            InputHandler.current_continuous = InputType.RIGHT
+        elif keys[pygame.K_DOWN]:
+            InputHandler.current_continuous = InputType.DOWN
+        elif keys[pygame.K_LEFT]:
+            InputHandler.current_continuous = InputType.LEFT
+
+    @staticmethod
+    def clear():
+        InputHandler.current_event = None
+        InputHandler.current_continuous = None
