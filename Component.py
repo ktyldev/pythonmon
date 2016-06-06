@@ -82,20 +82,16 @@ class MovementComponent(Component):
         self.target_pos = next_tile_pos
         Logger.log('Target Set: ' + str(next_tile_pos))
 
-    def remove_target(self):
-        self.target_pos = None
-
     def move(self):
         pixel_pos = (self.entity.x, self.entity.y)
-        entity_pos = TileManager.pixel_to_tile(pixel_pos)
 
-        if Helpers.vector_equality(entity_pos, self.target_pos):
+        # You have reached your destination
+        if Helpers.vector_equality(pixel_pos, TileManager.tile_to_pixel(self.target_pos)):
             self.position = self.target_pos
-            self.remove_target()
-            return
-
-        self.entity.x += self.direction_vector[0] * self.movement_speed
-        self.entity.y += self.direction_vector[1] * self.movement_speed
+            self.target_pos = None
+        else:
+            self.entity.x += self.direction_vector[0] * self.movement_speed
+            self.entity.y += self.direction_vector[1] * self.movement_speed
 
     def update(self):
         Component.update(self)

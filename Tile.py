@@ -3,16 +3,18 @@ import pygame
 from Configuration import Configuration
 from Logger import Logger
 
+
 class Tile(pygame.Rect):
 
     INVALID_TILE_POSITION = (-1, -1)
 
-    def __init__(self, id, position, size):
-        self.id = id
+    def __init__(self, number, position, size):
+        self.id = number
         self.position = position
         self.size = size
 
-class TileManager():
+
+class TileManager:
     NORTH = (0, -1)
     EAST = (1, 0)
     SOUTH = (0, 1)
@@ -27,11 +29,11 @@ class TileManager():
 
     @staticmethod
     def pixel_to_tile(vector):
-        return (vector[0] // TileManager._tile_size, vector[1] // TileManager._tile_size)
+        return vector[0] / TileManager._tile_size, vector[1] / TileManager._tile_size
     
     @staticmethod
-    def tile_to_pixel(x, y):
-        return (x * TileManager._tile_size, y * TileManager._tile_size)
+    def tile_to_pixel(vector):
+        return vector[0] * TileManager._tile_size, vector[1] * TileManager._tile_size
 
     @staticmethod
     def load_tiles(rect):
