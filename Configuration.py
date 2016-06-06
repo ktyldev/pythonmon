@@ -1,6 +1,5 @@
 import ConfigParser
-
-from Constants import Constants
+import Constants
 
 class Configuration:
 	config = ConfigParser.RawConfigParser()

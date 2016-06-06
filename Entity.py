@@ -1,7 +1,7 @@
 import pygame
+import Constants
 
 from Logger import Logger
-from Constants import Constants
 
 class Entity:
 

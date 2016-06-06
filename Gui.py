@@ -1,7 +1,7 @@
 import pygame
+import Constants
 
 from Logger import Logger
-from Constants import Constants
 from Entity import Entity
 from Configuration import Configuration
 from Component import GraphicsComponent
