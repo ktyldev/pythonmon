@@ -80,7 +80,6 @@ class MovementComponent(Component):
             return
 
         self.target_pos = next_tile_pos
-        Logger.log('Target Set: ' + str(next_tile_pos))
 
     def move(self):
         pixel_pos = (self.entity.x, self.entity.y)
