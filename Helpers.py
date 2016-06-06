@@ -1,5 +1,5 @@
 class Helpers:
 
-	@staticmethod
-	def add_vectors(a, b):
-		return (a[0] + b[0], a[1] + b[1])
+    @staticmethod
+    def add_vectors(a, b):
+        return (a[0] + b[0], a[1] + b[1])
