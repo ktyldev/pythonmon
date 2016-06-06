@@ -7,11 +7,10 @@ class Tile(pygame.Rect):
 
 	INVALID_TILE_POSITION = (-1, -1)
 
-	def __init__(self, id, x, y, width, height):
+	def __init__(self, id, position, size):
 		self.id = id
-		self.x = x
-		self.y = y
-		self.size = (width, height)
+		self.position = position
+		self.size = size
 
 class TileManager():
 	NORTH = (0, -1)
@@ -35,16 +34,6 @@ class TileManager():
 		return (x * TileManager._tile_size, y * TileManager._tile_size)
 
 	@staticmethod
-	def id_from_position(vector):
-		return vector[0] * TileManager.map_width + vector[1]
-
-	@staticmethod 
-	def position_from_id(id):
-		x = id % TileManager.map_width
-		y = id / TileManager.map_height
-		return (x, y)
-
-	@staticmethod
 	def load_tiles(rect):
 		tile_size = TileManager._tile_size
 
@@ -59,31 +48,16 @@ class TileManager():
 		tile_count = 0
 		for h in range(0, TileManager.map_height):
 			for w in range(0, TileManager.map_width):
-				tile = Tile(tile_count, w * tile_size, h * tile_size, tile_size, tile_size)
-				TileManager.List.append(tile)
+
+				position = (w * tile_size, h * tile_size)
+				size = (tile_size, tile_size)
+
+				TileManager.List.append(
+					Tile(
+						tile_count, 
+						position, 
+						size))
+
 				tile_count += 1
 
 		Logger.log('Tiles created: ' + str(tile_count))
-
-	@staticmethod
-	def get_tile_neighbour_id(tile_id, tile_direction):
-
-		tile_size = TileManager._tile_size
-		
-		if tile_direction == TileManager.NORTH:
-			if tile_id - _tile_size >= 0:
-				return tile_id - tile_size
-		
-		elif tile_direction == TileManager.EAST:
-			if (tile_id + 1) % tile_size != 0:
-				return tile_id + 1
-				
-		elif tile_direction == TileManager.SOUTH:
-			if tile_id + _tile_size <= TileManager.List.count:
-				return tile_id + tile_size
-		
-		elif tile_direction == TileManager.WEST:
-			if tile_id % tile_size != 0:
-				return tile_id - 1
-		
-		return -1
