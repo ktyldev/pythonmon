@@ -1,5 +1,4 @@
 class Component:
-
     List = []
 
     @staticmethod
