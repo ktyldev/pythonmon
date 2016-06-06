@@ -25,25 +25,20 @@ class Entity:
 		self.y = y
 		self.child_entities = []
 		self.components = []
-		self.target = None
 
 		Entity.List.append(self)
 
 		Logger.log(self.name + ' initialised at ' + str(self.x) + ", " + str(self.y))
 
-	def move_position(self, x, y):
-		self.x += x
-		self.y += y
+	def get_component(self, component_tag):
+		for component in self.components:
+			if component.tag == component_tag:
+				return component
 
-		if self.child_entities:
-			for e in self.child_entities:
-				e.move_position(x, y)
-
-	def set_position(self, x, y):
-		delta_x = x - self.x
-		delta_y = y - self.y
-		
-		move_position(delta_x, delta_y)
+	def update(self):
+		for component in self.components:
+			if component.enabled:
+				component.update()
 
 class Player(Entity):
 	def __init__(self, image, x = 0, y = 0):

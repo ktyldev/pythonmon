@@ -22,6 +22,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Component.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Configuration.py">
       <SubType>Code</SubType>
     </Compile>
@@ -32,6 +35,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Gui.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Input.py">

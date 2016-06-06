@@ -2,9 +2,14 @@ import pygame
 import sys
 
 class InputData:
-	def __init__(self, action, pressed):
-		self.action = action
-		self.pressed = pressed
+	def __init__(self, movement_key, action_key):
+		self.movement_key = movement_key
+		self.action_key = action_key
+
+class EventData:
+	def __init__(self, key, state):
+		self.key = key
+		self.state = state
 
 class InputType:
 	A = 0
@@ -50,7 +55,6 @@ class InputHandler:
 		
 		return result
 
-    # TODO: add system to intelligently provide input data when needed
 	@staticmethod
 	def get_event_data():
 		for event in pygame.event.get():
@@ -58,14 +62,51 @@ class InputHandler:
 				pygame.quit()
 				sys.exit()
 
-			pressed = InputHandler.get_input_state(event.type)
+			state = InputHandler.get_input_state(event.type)
 
-			if pressed == 'none':
+			if state == 'none':
 				break
 
-			action = InputHandler.get_input_type(event.key)
+			key = InputHandler.get_input_type(event.key)
 
-			if action == InputType.NONE:
+			if key == InputType.NONE:
 				break
 
-			return InputData(action, pressed)
+			return EventData(key, state)
+
+	@staticmethod
+	def get_continuous_data():
+
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				sys.exit()
+
+		keys = pygame.key.get_pressed()
+
+		movement_key = InputType.NONE
+		action_key = InputType.NONE
+		
+		if keys[pygame.K_UP]:
+			movement_key = InputType.UP
+		elif keys[pygame.K_RIGHT]:
+			movement_key = InputType.RIGHT
+		elif keys[pygame.K_DOWN]:
+			movement_key = InputType.DOWN
+		elif keys[pygame.K_LEFT]:
+			movement_key = InputType.LEFT
+
+		if keys[pygame.K_z]:
+			action_key = InputType.A
+		elif keys[pygame.K_x]:
+			action_key = InputType.B
+		elif keys[pygame.K_c]:
+			action_key = InputType.START
+		elif keys[pygame.K_v]:	
+			action_key = InputType.SELECT
+
+		if action_key == InputType.NONE and movement_key == InputType.NONE:
+			return
+
+		return InputData(movement_key, action_key)
+			

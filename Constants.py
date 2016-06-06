@@ -16,3 +16,5 @@ class Constants:
 	EAST = 1
 	SOUTH = 2
 	WEST = 3
+
+	INVALID_TILE_POSITION = (-1, -1)

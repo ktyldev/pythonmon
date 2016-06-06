@@ -1,12 +1,9 @@
 from Configuration import Configuration
 
 class Logger:
-	_state = Configuration.log_all
+	enabled = Configuration.log_all
 	
 	@staticmethod
 	def log(text):
-		if Logger._state:
+		if Logger.enabled:
 			print text
-		
-
-

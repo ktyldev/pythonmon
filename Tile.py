@@ -1,7 +1,6 @@
 import pygame
 
 from Configuration import Configuration
-from Entity import Entity
 from Logger import Logger
 
 class Tile(pygame.Rect):
@@ -11,15 +10,11 @@ class Tile(pygame.Rect):
 		self.y = y
 		self.size = (width, height)
 
-	@staticmethod
-	def invalid_tile():
-		return Tile(-1)
-
 class TileManager():
-	NORTH = 0
-	EAST = 1
-	SOUTH = 2
-	WEST = 3 
+	NORTH = (0, -1)
+	EAST = (1, 0)
+	SOUTH = (0, 1)
+	WEST = (-1, 0)
 
 	_tile_size = Configuration.tile_size
 
@@ -29,17 +24,32 @@ class TileManager():
 	List = []
 
 	@staticmethod
-	def load_tiles():
+	def pixel_to_tile(vector):
+		return (vector[0] / TileManager._tile_size, vector[1] / TileManager._tile_size)
+	
+	@staticmethod
+	def tile_to_pixel(x, y):
+		return (x * TileManager._tile_size, y * TileManager._tile_size)
+
+	@staticmethod
+	def id_from_position(vector):
+		return vector[0] * TileManager.map_width + vector[1]
+
+	@staticmethod 
+	def position_from_id(id):
+		x = id % TileManager.map_width
+		y = id / TileManager.map_height
+		return (x, y)
+
+	@staticmethod
+	def load_tiles(rect):
 		tile_size = TileManager._tile_size
 
-		background_entity = Entity.find('background')
-		background_rect = background_entity.surface.get_rect()
+		TileManager.map_width = rect.width / tile_size
+		TileManager.map_height = rect.height / tile_size
 
-		TileManager.map_width = background_rect.width / tile_size
-		TileManager.map_height = background_rect.height / tile_size
-
-		if not background_rect.width % tile_size == 0 or not background_rect.width % tile_size == 0:
-			raise Exception('map is of incorrect size')
+		if not rect.width % tile_size == 0 or not rect.width % tile_size == 0:
+			raise Exception('rect is of incorrect size')
 
 		Logger.log('Map Height: ' + str(TileManager.map_height) + ' Map Width: ' + str(TileManager.map_width))
 
@@ -53,9 +63,9 @@ class TileManager():
 		Logger.log('Tiles created: ' + str(tile_count))
 
 	@staticmethod
-	def get_tile_neighbour(tile_id, tile_direction):
+	def get_tile_neighbour_id(tile_id, tile_direction):
 
-		size = TileManager._tile_size
+		tile_size = TileManager._tile_size
 		
 		if tile_direction == TileManager.NORTH:
 			if tile_id - _tile_size >= 0:
@@ -73,4 +83,4 @@ class TileManager():
 			if tile_id % tile_size != 0:
 				return tile_id - 1
 		
-		return Tile.invalid_tile()
+		return -1
