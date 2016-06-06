@@ -1,4 +1,4 @@
-import pygame, ConfigParser
+import pygame, configparser
 import Constants
 
 from Gui import Gui

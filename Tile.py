@@ -27,7 +27,7 @@ class TileManager():
 
     @staticmethod
     def pixel_to_tile(vector):
-        return (vector[0] / TileManager._tile_size, vector[1] / TileManager._tile_size)
+        return (vector[0] // TileManager._tile_size, vector[1] // TileManager._tile_size)
     
     @staticmethod
     def tile_to_pixel(x, y):
@@ -37,8 +37,8 @@ class TileManager():
     def load_tiles(rect):
         tile_size = TileManager._tile_size
 
-        TileManager.map_width = rect.width / tile_size
-        TileManager.map_height = rect.height / tile_size
+        TileManager.map_width = rect.width // tile_size
+        TileManager.map_height = rect.height // tile_size
 
         if not rect.width % tile_size == 0 or not rect.width % tile_size == 0:
             raise Exception('rect is of incorrect size')

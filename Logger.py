@@ -6,4 +6,4 @@ class Logger:
     @staticmethod
     def log(text):
         if Logger.enabled:
-            print text
+            print(text)
