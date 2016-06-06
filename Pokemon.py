@@ -10,8 +10,6 @@ from Input import *
 from Tile import TileManager
 
 from Component import *
-from MovementComponent import *
-from GraphicsComponent import *
 
 class Program:
 
