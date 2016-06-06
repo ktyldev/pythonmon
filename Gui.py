@@ -4,7 +4,7 @@ import Constants
 from Logger import Logger
 from Entity import Entity
 from Configuration import Configuration
-from Component import GraphicsComponent
+from GraphicsComponent import GraphicsComponent
 
 from Tile import *
 

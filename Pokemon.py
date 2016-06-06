@@ -1,8 +1,8 @@
 import pygame, ConfigParser
+import Constants
 
 from Gui import Gui
 from Logger import Logger
-from Constants import Constants
 from Configuration import Configuration
 
 from Entity import *
@@ -10,6 +10,8 @@ from Input import *
 from Tile import TileManager
 
 from Component import *
+from MovementComponent import *
+from GraphicsComponent import *
 
 class Program:
 
