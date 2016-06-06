@@ -3,15 +3,14 @@ import sys
 
 
 class InputType:
-    A = 0
-    B = 1
-    START = 2
-    SELECT = 3
-    LEFT = 4
-    UP = 5
-    RIGHT = 6
-    DOWN = 7
-    NONE = 8
+    A = 'a'
+    B = 'b'
+    START = 'start'
+    SELECT = 'select'
+    LEFT = 'left'
+    UP = 'up'
+    RIGHT = 'right'
+    DOWN = 'down'
 
 
 class InputHandler:

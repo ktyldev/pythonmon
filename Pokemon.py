@@ -24,8 +24,8 @@ player = Entity('player', 160, 160)
 overworld.components.append(GraphicsComponent(overworld, Constants.BACKGROUND_FOLDER_PATH + 'pallet-town.png', 0))
 
 player.components.append(GraphicsComponent(player, Constants.PLAYER_SPRITE_FOLDER_PATH + 'player.png', Constants.PLAYER_LAYER))
-player.components.append(MovementComponent(player, 1))
-player.components.append(InputComponent(player))
+player.components.append(MovementComponent(player, 2))
+player.components.append(PlayerInputComponent(player, player.get_component('movement')))
 
 # Initialise tile engine
 TileManager.load_tiles(overworld.get_component('graphics').surface.get_rect())

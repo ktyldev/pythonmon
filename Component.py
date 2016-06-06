@@ -57,23 +57,40 @@ class MovementComponent(Component):
         self.direction_vector = None
         self.target_pos = None
 
-    def set_target(self, direction_vector):
-        next_tile_pos = Helpers.add_vectors(self.position, direction_vector)
+    def set_direction_vector(self, direction):
+        if direction == 'up':
+            self.direction_vector = 0, -1
+        elif direction == 'right':
+            self.direction_vector = 1, 0
+        elif direction == 'down':
+            self.direction_vector = 0, 1
+        elif direction == 'left':
+            self.direction_vector = -1, 0
+
+    def move_command(self, direction):
+        if not self.target_pos:
+            self.set_direction_vector(direction)
+            self.set_target()
+
+    def set_target(self):
+        next_tile_pos = Helpers.add_vectors(self.position, self.direction_vector)
 
         if next_tile_pos == Tile.INVALID_TILE_POSITION:
             Logger.log('can\'t go that way!')
             return
 
         self.target_pos = next_tile_pos
-        self.direction_vector = direction_vector
+        Logger.log('Target Set: ' + str(next_tile_pos))
 
     def remove_target(self):
         self.target_pos = None
 
     def move(self):
         pixel_pos = (self.entity.x, self.entity.y)
+        entity_pos = TileManager.pixel_to_tile(pixel_pos)
 
-        if TileManager.pixel_to_tile(pixel_pos) == self.target_pos:
+        if Helpers.vector_equality(entity_pos, self.target_pos):
+            self.position = self.target_pos
             self.remove_target()
             return
 
@@ -86,14 +103,18 @@ class MovementComponent(Component):
             self.move()
 
 
-class InputComponent(Component):
-    def __init__(self, entity):
+class PlayerInputComponent(Component):
+    def __init__(self, entity, movement_component):
         Component.__init__(self, entity, 'input')
         self.continuous_input = None
         self.event_input = None
+        self.movement_component = movement_component
 
     def update(self):
         Component.update(self)
 
         self.event_input = InputHandler.current_event
         self.continuous_input = InputHandler.current_continuous
+
+        if self.continuous_input:
+            self.movement_component.move_command(self.continuous_input)
