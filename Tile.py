@@ -4,6 +4,9 @@ from Configuration import Configuration
 from Logger import Logger
 
 class Tile(pygame.Rect):
+
+	INVALID_TILE_POSITION = (-1, -1)
+
 	def __init__(self, id, x, y, width, height):
 		self.id = id
 		self.x = x
