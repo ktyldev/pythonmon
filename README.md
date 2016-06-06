@@ -1,10 +1,8 @@
 # pythonmon
 
-## How to use
-
-1. Install [Python 2.7.11](https://www.python.org/downloads/)
-2. Install [Pygame 1.9](http://www.pygame.org/download.shtml)
-3. Run Pokemon.py
+* [Python 3.5.1](https://www.python.org/downloads/)
+* [Pygame for Python 3.5](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pygame)
+* [Guide for installing pygame](https://skellykiernan.wordpress.com/2015/01/04/python-pygame-install/)
 
 ## Configuration
 
