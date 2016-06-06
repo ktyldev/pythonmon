@@ -34,10 +34,3 @@ class Entity:
 		for component in self.components:
 			if component.enabled:
 				component.update()
-
-#class Player(Entity):
-#	def __init__(self, image, x = 0, y = 0):
-#		Entity.__init__(self, Constants.PLAYER_NAME, image, Constants.PLAYER_LAYER, x, y)
-			
-
-

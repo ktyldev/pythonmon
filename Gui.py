@@ -37,5 +37,3 @@ class Gui:
 
 		# update the display
 		pygame.display.flip()
-
-

@@ -109,4 +109,3 @@ class InputHandler:
 			return
 
 		return InputData(movement_key, action_key)
-			
