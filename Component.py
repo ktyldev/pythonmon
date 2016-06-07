@@ -5,7 +5,9 @@ from Input import *
 
 
 class Component:
-
+    """
+    generic base class for defining entity behaviour
+    """
     List = []
 
     @staticmethod
@@ -22,14 +24,27 @@ class Component:
         Component.List.append(self)
 
     def update(self):
+        """
+        called once per tick
+        :return:
+        """
         return
 
 
 class GraphicsComponent(Component):
-
+    """
+    renders an image on the entity's position
+    """
     List = []
 
     def __init__(self, entity, image, layer, offset=(0, 0)):
+        """
+
+        :param entity:
+        :param image: path to image to use
+        :param layer: gui layer to draw image on
+        :param offset: fine tune image position against entity position
+        """
         Component.__init__(self, entity, 'graphics')
 
         self.draw_x = 0
@@ -48,6 +63,10 @@ class GraphicsComponent(Component):
 
 
 class MovementComponent(Component):
+    """
+    Handles tile-based movement
+    """
+
     def __init__(self, entity, movement_speed, input_component):
         Component.__init__(self, entity, 'movement')
 
@@ -59,10 +78,20 @@ class MovementComponent(Component):
         self.target_pos = None
 
     def move_command(self, direction):
+        """
+        sets target direction if no target is set
+        :param direction: target direction
+        :return:
+        """
         if not self.target_pos:
             self.set_target(direction)
 
     def set_target(self, direction):
+        """
+        sets target to neighbouring tile specified by direction
+        :param direction: target direction
+        :return:
+        """
         self.direction = direction
 
         direction_vector = Helpers.direction_to_direction_vector(direction)
@@ -76,6 +105,10 @@ class MovementComponent(Component):
         self.target_pos = next_tile_pos
 
     def move(self):
+        """
+        move towards target based on movement speed
+        :return:
+        """
         pixel_pos = (self.entity.x, self.entity.y)
 
         # You have reached your destination
@@ -107,6 +140,9 @@ class MovementComponent(Component):
 
 
 class InputComponent(Component):
+    """
+    generic base class for providing input to an entity
+    """
     def __init__(self, entity, tag):
         Component.__init__(self, entity, tag)
         self.continuous_input = None
@@ -117,6 +153,9 @@ class InputComponent(Component):
 
 
 class PlayerInputComponent(InputComponent):
+    """
+    receives input from InputHandler
+    """
     def __init__(self, entity):
         InputComponent.__init__(self, entity, 'player input')
 
