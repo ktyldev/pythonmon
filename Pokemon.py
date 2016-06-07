@@ -20,7 +20,7 @@ gui_ticks = 0
 
 # Initialise entities
 overworld = Entity('background')
-player = Entity('player', 160, 160)
+player = Entity('player', (160, 160))
 
 # Initialise components
 overworld.components.append(

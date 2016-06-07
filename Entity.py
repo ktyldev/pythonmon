@@ -2,20 +2,27 @@ from Logger import Logger
 
 
 class Entity:
-
+    """
+    representation for objects in the game world, container for components
+    """
     List = []
 
     @staticmethod
     def find(name):
+        """
+        returns entity based on name
+        :param name: name of entity
+        :return:
+        """
         for entity in Entity.List:
             if entity.name == name:
                 return entity
         return None
 
-    def __init__(self, name, x=0, y=0):
+    def __init__(self, name, position):
         self.name = name
-        self.x = x
-        self.y = y
+        self.x = position[0]
+        self.y = position[1]
         self.child_entities = []
         self.components = []
 
