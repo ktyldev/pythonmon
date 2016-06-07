@@ -100,7 +100,7 @@ class MovementComponent(Component):
 
         current_input = self.input_component.continuous_input
         if current_input:
-            self.move_command(input)
+            self.move_command(current_input)
 
         if self.target_pos:
             self.move()
