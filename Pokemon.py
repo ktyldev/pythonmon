@@ -1,5 +1,7 @@
 import Constants
 
+from Configuration import *
+
 from Gui import Gui
 from Entity import *
 from Component import *
@@ -27,25 +29,36 @@ overworld.components.append(
     GraphicsComponent(
         overworld,
         Constants.BACKGROUND_FOLDER_PATH + 'pallet-town.png',
-        0))
+        0)
+)
+overworld.components.append(
+    TileMapComponent(
+        overworld,
+        Configuration.tile_size
+    )
+)
 
 player.components.append(
     GraphicsComponent(
         player,
         Constants.PLAYER_SPRITE_FOLDER_PATH + 'player.png',
         Constants.PLAYER_LAYER,
-        Constants.PLAYER_SPRITE_OFFSET))
+        Constants.PLAYER_SPRITE_OFFSET)
+)
 player.components.append(PlayerInputComponent(player))
 player.components.append(
     MovementComponent(
         player,
         2,
-        player.get_component('player input')))
+        player.get_component('player input'),
+        overworld.get_component('tile map')
+    )
+)
 
 Gui.set_focus(player.get_component('graphics'))
 
 # Initialise tile engine
-TileManager.load_tiles(overworld.get_component('graphics').surface.get_rect())
+# TileManager.load_tiles(overworld.get_component('graphics').surface.get_rect())
 
 # LOOP ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

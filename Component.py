@@ -1,4 +1,3 @@
-from Tile import *
 from Helpers import Helpers
 from Logger import Logger
 from Input import *
@@ -67,11 +66,12 @@ class MovementComponent(Component):
     Handles tile-based movement
     """
 
-    def __init__(self, entity, movement_speed, input_component):
+    def __init__(self, entity, movement_speed, input_component, tile_map_component):
         Component.__init__(self, entity, 'movement')
 
-        self.position = TileManager.pixel_to_tile((entity.x, entity.y))
+        self.position = tile_map_component.pixel_to_tile((entity.x, entity.y))
 
+        self.tile_map_component = tile_map_component
         self.input_component = input_component
         self.movement_speed = movement_speed
         self.direction = None
@@ -98,7 +98,7 @@ class MovementComponent(Component):
 
         next_tile_pos = Helpers.add_vectors(self.position, direction_vector)
 
-        if not TileManager.in_bounds(next_tile_pos):
+        if not self.tile_map_component.in_bounds(next_tile_pos):
             Logger.log('can\'t go that way!')
             return
 
@@ -113,7 +113,7 @@ class MovementComponent(Component):
 
         # You have reached your destination
 
-        target_reached = Helpers.vector_equality(pixel_pos, TileManager.tile_to_pixel(self.target_pos))
+        target_reached = Helpers.vector_equality(pixel_pos, self.tile_map_component.tile_to_pixel(self.target_pos))
 
         if target_reached:
             self.position = self.target_pos
@@ -164,3 +164,45 @@ class PlayerInputComponent(InputComponent):
 
         self.event_input = InputHandler.current_event
         self.continuous_input = InputHandler.current_continuous
+
+
+class TileMapComponent(Component):
+    def __init__(self, entity, tile_size):
+
+        rect = entity.get_component('graphics').surface.get_rect()
+
+        if not rect.width % tile_size == 0 or not rect.height % tile_size == 0:
+            raise Exception('invalid rect')
+
+        Component.__init__(self, entity, 'tile map')
+        self.rect = rect
+        self.tile_size = tile_size
+
+        self.map_width = rect.width // self.tile_size
+        self.map_height = rect.height // self.tile_size
+
+        self.tile_list = []
+
+        count = 0
+        for h in range(0, self.map_height):
+            for w in range(0, self.map_width):
+                position = w * self.tile_size, h * self.tile_size
+                size = tile_size, tile_size
+
+                tile = (count, pygame.Rect(position, size))
+                count += 1
+
+    def in_bounds(self, tile_position):
+        x = tile_position[0]
+        y = tile_position[1]
+
+        valid_x_range = range(0, self.map_width)
+        valid_y_range = range(0, self.map_height)
+
+        return x in valid_x_range and y in valid_y_range
+
+    def pixel_to_tile(self, vector):
+        return vector[0] / self.tile_size, vector[1] / self.tile_size
+
+    def tile_to_pixel(self, vector):
+        return vector[0] * self.tile_size, vector[1] * self.tile_size

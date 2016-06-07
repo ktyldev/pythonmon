@@ -1,8 +1,7 @@
-import Constants
+import pygame
 
+from Configuration import *
 from Component import GraphicsComponent
-
-from Tile import *
 from Helpers import Helpers
 
 

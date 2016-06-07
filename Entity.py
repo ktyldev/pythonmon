@@ -19,7 +19,7 @@ class Entity:
                 return entity
         return None
 
-    def __init__(self, name, position):
+    def __init__(self, name, position = (0, 0)):
         self.name = name
         self.x = position[0]
         self.y = position[1]
