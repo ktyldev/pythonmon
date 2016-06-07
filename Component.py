@@ -31,11 +31,13 @@ class GraphicsComponent(Component):
 
     List = []
 
-    def __init__(self, entity, image, layer):
+    def __init__(self, entity, image, layer, offset = (0, 0)):
         Component.__init__(self, entity, 'graphics')
 
         self.draw_x = 0
         self.draw_y = 0
+
+        self.offset = offset
 
         self.layer = layer
         self.surface = pygame.image.load(image)
@@ -43,8 +45,8 @@ class GraphicsComponent(Component):
 
     def update(self):
         Component.update(self)
-        self.draw_x = self.entity.x
-        self.draw_y = self.entity.y
+        self.draw_x = self.entity.x + self.offset[0]
+        self.draw_y = self.entity.y + self.offset[1]
 
 
 class MovementComponent(Component):
@@ -69,7 +71,7 @@ class MovementComponent(Component):
 
         next_tile_pos = Helpers.add_vectors(self.position, direction_vector)
 
-        if next_tile_pos == Tile.INVALID_TILE_POSITION:
+        if not TileManager.in_bounds(next_tile_pos):
             Logger.log('can\'t go that way!')
             return
 
@@ -125,4 +127,5 @@ class PlayerInputComponent(InputComponent):
 
         self.event_input = InputHandler.current_event
         self.continuous_input = InputHandler.current_continuous
+
 

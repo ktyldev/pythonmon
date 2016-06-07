@@ -6,7 +6,7 @@ from Logger import Logger
 
 class Tile(pygame.Rect):
 
-    INVALID_TILE_POSITION = (-1, -1)
+
 
     def __init__(self, number, position, size):
         self.id = number
@@ -15,12 +15,8 @@ class Tile(pygame.Rect):
 
 
 class TileManager:
-    NORTH = (0, -1)
-    EAST = (1, 0)
-    SOUTH = (0, 1)
-    WEST = (-1, 0)
-
-    _tile_size = Configuration.tile_size
+    TILE_SIZE = Configuration.tile_size
+    INVALID_TILE_POSITION = -1, -1
 
     map_width = 0
     map_height = 0
@@ -29,15 +25,25 @@ class TileManager:
 
     @staticmethod
     def pixel_to_tile(vector):
-        return vector[0] / TileManager._tile_size, vector[1] / TileManager._tile_size
+        return vector[0] / TileManager.TILE_SIZE, vector[1] / TileManager.TILE_SIZE
     
     @staticmethod
     def tile_to_pixel(vector):
-        return vector[0] * TileManager._tile_size, vector[1] * TileManager._tile_size
+        return vector[0] * TileManager.TILE_SIZE, vector[1] * TileManager.TILE_SIZE
+
+    @staticmethod
+    def in_bounds(tile_position):
+        x = tile_position[0]
+        y = tile_position[1]
+
+        valid_x_range = range(0, TileManager.map_width)
+        valid_y_range = range(0, TileManager.map_height)
+
+        return x in valid_x_range and y in valid_y_range
 
     @staticmethod
     def load_tiles(rect):
-        tile_size = TileManager._tile_size
+        tile_size = TileManager.TILE_SIZE
 
         TileManager.map_width = rect.width // tile_size
         TileManager.map_height = rect.height // tile_size
