@@ -40,6 +40,8 @@ player.components.append(
         2,
         player.get_component('player input')))
 
+Gui.set_focus(player.get_component('graphics'))
+
 # Initialise tile engine
 TileManager.load_tiles(overworld.get_component('graphics').surface.get_rect())
 

@@ -31,7 +31,7 @@ class GraphicsComponent(Component):
 
     List = []
 
-    def __init__(self, entity, image, layer, offset = (0, 0)):
+    def __init__(self, entity, image, layer, offset=(0, 0)):
         Component.__init__(self, entity, 'graphics')
 
         self.draw_x = 0
@@ -127,5 +127,3 @@ class PlayerInputComponent(InputComponent):
 
         self.event_input = InputHandler.current_event
         self.continuous_input = InputHandler.current_continuous
-
-
