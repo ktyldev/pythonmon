@@ -5,13 +5,9 @@ from Logger import Logger
 
 
 class Tile(pygame.Rect):
-
-
-
     def __init__(self, number, position, size):
+        super().__init__((position[0], position[1]), (size[0], size[1]))
         self.id = number
-        self.position = position
-        self.size = size
 
 
 class TileManager:

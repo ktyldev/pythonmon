@@ -1,5 +1,3 @@
-import pygame
-
 from Tile import *
 from Helpers import Helpers
 from Logger import Logger
@@ -100,8 +98,8 @@ class MovementComponent(Component):
     def update(self):
         Component.update(self)
 
-        input = self.input_component.continuous_input
-        if input:
+        current_input = self.input_component.continuous_input
+        if current_input:
             self.move_command(input)
 
         if self.target_pos:

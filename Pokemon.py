@@ -1,3 +1,5 @@
+import Constants
+
 from Gui import Gui
 from Entity import *
 from Component import *

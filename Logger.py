@@ -1,5 +1,6 @@
 from Configuration import Configuration
 
+
 class Logger:
     enabled = Configuration.log_all
     

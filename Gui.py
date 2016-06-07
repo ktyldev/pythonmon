@@ -8,7 +8,6 @@ from Helpers import Helpers
 
 class Gui:
     _layer_limit = Configuration.layer_limit
-    _log_drawing = Configuration.log_gui
     _screen_width = Configuration.screen_width
     _screen_height = Configuration.screen_height
     _screen = pygame.display.set_mode((_screen_width, _screen_height))
@@ -24,7 +23,7 @@ class Gui:
     @staticmethod
     def draw():
         draw_pos = Gui.focus.draw_x, Gui.focus.draw_y
-        V = Helpers.subtract_vector(Gui._screen_centre, draw_pos)
+        focus_vector = Helpers.subtract_vector(Gui._screen_centre, draw_pos)
 
         # clear the screen
         Gui._screen.fill(Constants.BLACK)
@@ -35,13 +34,10 @@ class Gui:
                 if graphics_component.layer == layer:
 
                     draw_rect = graphics_component.draw_x, graphics_component.draw_y
-                    draw_with_offset = Helpers.add_vectors(draw_rect, V)
+                    draw_with_offset = Helpers.add_vectors(draw_rect, focus_vector)
 
                     Gui._screen.blit(
                         graphics_component.surface, draw_with_offset)
-
-                    if Gui._log_drawing:
-                        Logger.log('Drawing entity ' + entity.name + ' on layer ' + str(layer))
             
             if Gui._draw_tiles:
                 for tile in TileManager.List:
