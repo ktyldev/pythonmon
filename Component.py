@@ -51,7 +51,7 @@ class GraphicsComponent(Component):
         :param layer: gui layer to draw image on
         :param offset: fine tune image position against entity position
         """
-        Component.__init__(self, entity, 'graphics')
+        super().__init__(entity, 'graphics')
 
         self.draw_x = 0
         self.draw_y = 0
@@ -63,7 +63,7 @@ class GraphicsComponent(Component):
         GraphicsComponent.List.append(self)
 
     def update(self):
-        Component.update(self)
+        super().update()
         self.draw_x = self.entity.x + self.offset[0]
         self.draw_y = self.entity.y + self.offset[1]
 
@@ -74,7 +74,7 @@ class MovementComponent(Component):
     """
 
     def __init__(self, entity, movement_speed, input_component, tile_map_component):
-        Component.__init__(self, entity, 'movement')
+        super().__init__(entity, 'movement')
 
         self.position = tile_map_component.pixel_to_tile((entity.x, entity.y))
 
@@ -140,7 +140,7 @@ class MovementComponent(Component):
             self.entity.y += direction_vector[1] * self.movement_speed
 
     def update(self):
-        Component.update(self)
+        super().update()
 
         current_input = self.input_component.continuous_input
         if current_input:
@@ -155,12 +155,12 @@ class InputComponent(Component):
     generic base class for providing input to an entity
     """
     def __init__(self, entity, tag):
-        Component.__init__(self, entity, tag)
+        super().__init__(entity, tag)
         self.continuous_input = None
         self.event_input = None
 
     def update(self):
-        Component.update(self)
+        super().update()
 
 
 class PlayerInputComponent(InputComponent):
@@ -168,10 +168,10 @@ class PlayerInputComponent(InputComponent):
     receives input from InputHandler
     """
     def __init__(self, entity):
-        InputComponent.__init__(self, entity, 'player input')
+        super().__init__(entity, 'player input')
 
     def update(self):
-        InputComponent.update(self)
+        super().update()
 
         self.event_input = InputHandler.current_event
         self.continuous_input = InputHandler.current_continuous
@@ -192,6 +192,19 @@ class TileMapComponent(Component):
             for property_name in property_names:
                 self.properties[property_name] = False
 
+    def __init__(self, entity, tile_size, tile_property_names):
+
+        rect = entity.get_component('graphics').surface.get_rect()
+
+        if not rect.width % tile_size == 0 or not rect.height % tile_size == 0:
+            raise Exception('invalid rect')
+
+        super().__init__(entity, 'tile map')
+        self.rect = rect
+        self.tile_size = tile_size
+        self.tile_property_names = tile_property_names
+        self.tile_list = []
+
     def get_tile(self, position):
         """
         returns tile at position.
@@ -203,21 +216,8 @@ class TileMapComponent(Component):
                 return tile
         return None
 
-    def __init__(self, entity, tile_size, tile_property_names):
-
-        rect = entity.get_component('graphics').surface.get_rect()
-
-        if not rect.width % tile_size == 0 or not rect.height % tile_size == 0:
-            raise Exception('invalid rect')
-
-        Component.__init__(self, entity, 'tile map')
-        self.rect = rect
-        self.tile_size = tile_size
-        self.tile_property_names = tile_property_names
-        self.tile_list = []
-
     def start(self):
-        Component.start(self)
+        super().start()
 
         self.map_width = self.rect.width // self.tile_size
         self.map_height = self.rect.height // self.tile_size
