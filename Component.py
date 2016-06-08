@@ -22,6 +22,13 @@ class Component:
         self.tag = tag
         Component.List.append(self)
 
+    def start(self):
+        """
+        called at the start of the scene
+        :return:
+        """
+        return
+
     def update(self):
         """
         called once per tick
@@ -198,19 +205,20 @@ class TileMapComponent(Component):
         Component.__init__(self, entity, 'tile map')
         self.rect = rect
         self.tile_size = tile_size
-
-
-        self.map_width = rect.width // self.tile_size
-        self.map_height = rect.height // self.tile_size
-
         self.tile_property_names = tile_property_names
         self.tile_list = []
+
+    def start(self):
+        Component.start(self)
+
+        self.map_width = self.rect.width // self.tile_size
+        self.map_height = self.rect.height // self.tile_size
 
         count = 0
         for h in range(0, self.map_height):
             for w in range(0, self.map_width):
                 position = w, h
-                size = tile_size, tile_size
+                size = self.tile_size, self.tile_size
 
                 tile = TileMapComponent.Tile(
                     count,

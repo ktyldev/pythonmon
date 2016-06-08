@@ -35,6 +35,11 @@ class Entity:
             if component.tag == component_tag:
                 return component
 
+    def start(self):
+        for component in self.components:
+            if component.enabled:
+                component.start()
+
     def update(self):
         for component in self.components:
             if component.enabled:

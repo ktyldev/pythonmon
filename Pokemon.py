@@ -58,8 +58,10 @@ player.components.append(
 
 Gui.set_focus(player.get_component('graphics'))
 
-# Initialise tile engine
-# TileManager.load_tiles(overworld.get_component('graphics').surface.get_rect())
+# start components
+
+for entity in Entity.List:
+    entity.start()
 
 # LOOP ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
