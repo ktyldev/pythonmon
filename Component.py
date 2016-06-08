@@ -97,6 +97,10 @@ class MovementComponent(Component):
         direction_vector = Helpers.direction_to_direction_vector(direction)
 
         next_tile_pos = Helpers.add_vectors(self.position, direction_vector)
+        next_tile_pos = int(next_tile_pos[0]), int(next_tile_pos[1])
+
+        if self.tile_map_component.get_tile_property(next_tile_pos, 'collision'):
+            return
 
         if not self.tile_map_component.in_bounds(next_tile_pos):
             Logger.log('can\'t go that way!')
@@ -167,7 +171,24 @@ class PlayerInputComponent(InputComponent):
 
 
 class TileMapComponent(Component):
-    def __init__(self, entity, tile_size):
+    class Tile():
+        def __init__(self, id, position, size, property_names):
+            self.id = id
+            self.position = position
+            self.size = size
+
+            self.properties = {}
+
+            for property_name in property_names:
+                self.properties[property_name] = False
+
+    def get_tile(self, position):
+        for tile in self.tile_list:
+            if Helpers.vector_equality(tile.position, position):
+                return tile
+        return None
+
+    def __init__(self, entity, tile_size, tile_property_names):
 
         rect = entity.get_component('graphics').surface.get_rect()
 
@@ -178,19 +199,38 @@ class TileMapComponent(Component):
         self.rect = rect
         self.tile_size = tile_size
 
+
         self.map_width = rect.width // self.tile_size
         self.map_height = rect.height // self.tile_size
 
+        self.tile_property_names = tile_property_names
         self.tile_list = []
 
         count = 0
         for h in range(0, self.map_height):
             for w in range(0, self.map_width):
-                position = w * self.tile_size, h * self.tile_size
+                position = w, h
                 size = tile_size, tile_size
 
-                tile = (count, pygame.Rect(position, size))
+                tile = TileMapComponent.Tile(
+                    count,
+                    position,
+                    size,
+                    self.tile_property_names
+                )
+
+                self.tile_list.append(tile)
                 count += 1
+
+    def get_tile_property(self, tile_position, property_name):
+        tile = self.get_tile(tile_position)
+
+        if not tile:
+            raise Exception('no tile at ' + str(tile_position))
+
+        property = tile.properties['collision']
+
+        return property
 
     def in_bounds(self, tile_position):
         x = tile_position[0]

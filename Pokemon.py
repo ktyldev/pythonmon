@@ -34,7 +34,8 @@ overworld.components.append(
 overworld.components.append(
     TileMapComponent(
         overworld,
-        Configuration.tile_size
+        Configuration.tile_size,
+        Configuration.property_names
     )
 )
 
