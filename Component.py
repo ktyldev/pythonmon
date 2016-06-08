@@ -179,6 +179,9 @@ class PlayerInputComponent(InputComponent):
 
 class TileMapComponent(Component):
     class Tile():
+        """
+        stores tile data for use by a TileMapComponent object
+        """
         def __init__(self, id, position, size, property_names):
             self.id = id
             self.position = position
@@ -190,6 +193,11 @@ class TileMapComponent(Component):
                 self.properties[property_name] = False
 
     def get_tile(self, position):
+        """
+        returns tile at position.
+        :param position: where to look for a tile
+        :return:
+        """
         for tile in self.tile_list:
             if Helpers.vector_equality(tile.position, position):
                 return tile
