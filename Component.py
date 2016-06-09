@@ -216,6 +216,11 @@ class TileMapComponent(Component):
                 return tile
         return None
 
+    def set_tile_property(self, tile_position, property_name, value):
+        tile = self.get_tile(tile_position)
+        tile.properties[property_name] = value
+
+
     def start(self):
         super().start()
 

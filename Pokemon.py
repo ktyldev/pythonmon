@@ -63,6 +63,8 @@ Gui.set_focus(player.get_component('graphics'))
 for entity in Entity.List:
     entity.start()
 
+overworld.get_component('tile map').set_tile_property((12, 12), 'collision', True)
+
 # LOOP ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 while True:
