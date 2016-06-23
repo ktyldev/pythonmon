@@ -106,7 +106,7 @@ class MovementComponent(Component):
         next_tile_pos = Helpers.add_vectors(self.position, direction_vector)
         next_tile_pos = int(next_tile_pos[0]), int(next_tile_pos[1])
 
-        if self.tile_map_component.get_tile_property(next_tile_pos, 'collision'):
+        if self.tile_map_component.get_tile_property(next_tile_pos) == 'collision':
             return
 
         if not self.tile_map_component.in_bounds(next_tile_pos):
@@ -178,32 +178,40 @@ class PlayerInputComponent(InputComponent):
 
 
 class TileMapComponent(Component):
-    class Tile():
+    class Tile:
         """
         stores tile data for use by a TileMapComponent object
         """
-        def __init__(self, id, position, size, property_names):
-            self.id = id
-            self.position = position
-            self.size = size
+        def __init__(self, tile_id, tile_type):
+            self.tile_id = tile_id
+            self.tile_type = tile_type
 
-            self.properties = {}
-
-            for property_name in property_names:
-                self.properties[property_name] = False
-
-    def __init__(self, entity, tile_size, tile_property_names):
-
-        rect = entity.get_component('graphics').surface.get_rect()
-
-        if not rect.width % tile_size == 0 or not rect.height % tile_size == 0:
-            raise Exception('invalid rect')
-
+    def __init__(self, entity, tile_size, tile_map_data, tile_property_names):
         super().__init__(entity, 'tile map')
-        self.rect = rect
+
+        self.map_width = tile_map_data['Width']
+        self.map_height = tile_map_data['Height']
+        self.tiles_data = tile_map_data['Tiles']
+
         self.tile_size = tile_size
         self.tile_property_names = tile_property_names
         self.tile_list = []
+
+    def start(self):
+        super().start()
+
+        for tile_datum in self.tiles_data:
+            tile = TileMapComponent.Tile(tile_datum['Id'], tile_datum['Type'])
+            self.tile_list.append(tile)
+
+    def id_to_coordinate(self, tile_id):
+        y = tile_id // self.map_width
+        x = tile_id % self.map_width
+
+        return x, y
+
+    def coordinate_to_id(self, coordinate):
+        return coordinate[1] * self.map_width + coordinate[0]
 
     def get_tile(self, position):
         """
@@ -212,46 +220,13 @@ class TileMapComponent(Component):
         :return:
         """
         for tile in self.tile_list:
-            if Helpers.vector_equality(tile.position, position):
+            if Helpers.vector_equality(self.id_to_coordinate(tile.tile_id), position):
                 return tile
         return None
 
-    def set_tile_property(self, tile_position, property_name, value):
+    def get_tile_property(self, tile_position):
         tile = self.get_tile(tile_position)
-        tile.properties[property_name] = value
-
-
-    def start(self):
-        super().start()
-
-        self.map_width = self.rect.width // self.tile_size
-        self.map_height = self.rect.height // self.tile_size
-
-        count = 0
-        for h in range(0, self.map_height):
-            for w in range(0, self.map_width):
-                position = w, h
-                size = self.tile_size, self.tile_size
-
-                tile = TileMapComponent.Tile(
-                    count,
-                    position,
-                    size,
-                    self.tile_property_names
-                )
-
-                self.tile_list.append(tile)
-                count += 1
-
-    def get_tile_property(self, tile_position, property_name):
-        tile = self.get_tile(tile_position)
-
-        if not tile:
-            raise Exception('no tile at ' + str(tile_position))
-
-        property = tile.properties['collision']
-
-        return property
+        return tile.tile_type
 
     def in_bounds(self, tile_position):
         x = tile_position[0]

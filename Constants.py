@@ -4,8 +4,8 @@ BLANK_IMAGE_FILE = '_Resources/Images/blank.png'
 CONFIG_PATH = '_config.cfg'
 
 BACKGROUND_FOLDER_PATH = '_Resources/Images/Overworld/Map/Background/'
-
 PLAYER_SPRITE_FOLDER_PATH = '_Resources/Images/Overworld/Characters/Player/'
+MAP_DATA_FOLDER_PATH = '_Resources/Data/MapData/'
 
 TILE_LAYER = 7
 PLAYER_LAYER = 8

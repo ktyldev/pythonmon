@@ -1,4 +1,4 @@
-import Constants
+import JsonManager
 
 from Configuration import *
 
@@ -35,6 +35,7 @@ overworld.components.append(
     TileMapComponent(
         overworld,
         Configuration.tile_size,
+        JsonManager.get_data(Constants.MAP_DATA_FOLDER_PATH + 'pallet-town-map-data.json'),
         Configuration.property_names
     )
 )
@@ -62,8 +63,6 @@ Gui.set_focus(player.get_component('graphics'))
 
 for entity in Entity.List:
     entity.start()
-
-overworld.get_component('tile map').set_tile_property((12, 12), 'collision', True)
 
 # LOOP ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
