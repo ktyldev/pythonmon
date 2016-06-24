@@ -49,10 +49,6 @@ class Gui:
 
                     Gui._screen.blit(
                         graphics_component.surface, draw_with_offset)
-            
-            if Gui._draw_tiles:
-                for tile in TileManager.List:
-                    pygame.draw.rect(Gui._screen, [255, 0, 0], tile)
 
         # update the display
         pygame.display.flip()
