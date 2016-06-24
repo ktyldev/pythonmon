@@ -25,37 +25,35 @@ overworld = Entity('background')
 player = Entity('player', (160, 160))
 
 # Initialise components
-overworld.components.append(
-    GraphicsComponent(
-        overworld,
-        Constants.BACKGROUND_FOLDER_PATH + 'pallet-town.png',
-        0)
-)
-overworld.components.append(
-    TileMapComponent(
-        overworld,
-        Configuration.tile_size,
-        JsonManager.get_data(Constants.MAP_DATA_FOLDER_PATH + 'pallet-town-map-data.json'),
-        Configuration.property_names
-    )
-)
 
-player.components.append(
-    GraphicsComponent(
-        player,
-        Constants.PLAYER_SPRITE_FOLDER_PATH + 'player.png',
-        Constants.PLAYER_LAYER,
-        Constants.PLAYER_SPRITE_OFFSET)
-)
-player.components.append(PlayerInputComponent(player))
-player.components.append(
-    MovementComponent(
-        player,
-        2,
-        player.get_component('player input'),
-        overworld.get_component('tile map')
-    )
-)
+# overworld graphics component
+overworld.add_component(GraphicsComponent())
+overworld_graphics = overworld.get_component('graphics')
+overworld_graphics.image = Constants.BACKGROUND_FOLDER_PATH + 'pallet-town.png'
+overworld_graphics.layer = 0
+
+# overworld tile map
+overworld.add_component(TileMapComponent())
+overworld_tile_map = overworld.get_component('tile map')
+overworld_tile_map.tile_size = Configuration.tile_size
+overworld.tile_map_data = JsonManager.get_data(Constants.MAP_DATA_FOLDER_PATH + 'pallet-town-map-data.json')
+
+# player graphics component
+player.add_component(GraphicsComponent())
+player_graphics = player.get_component('graphics')
+player_graphics.offset = Constants.PLAYER_SPRITE_OFFSET
+player_graphics.layer = Constants.PLAYER_LAYER
+player_graphics.image = Constants.PLAYER_SPRITE_FOLDER_PATH + 'player.png'
+
+# player input component
+player.add_component(PlayerInputComponent())
+
+# player movement component
+player.add_component(MovementComponent())
+player_movement = player.get_component('movement')
+player_movement.tile_map_component = overworld.get_component('tile map')
+player_movement.input_component = player.get_component('player input')
+player_movement.movement_speed = 2
 
 Gui.set_focus(player.get_component('graphics'))
 

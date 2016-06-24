@@ -16,10 +16,10 @@ class Component:
                 return component
         return None
 
-    def __init__(self, entity, tag):
-        self.entity = entity
+    def __init__(self):
         self.enabled = True
-        self.tag = tag
+        self.tag = ''
+        self.entity = None
         Component.List.append(self)
 
     def start(self):
@@ -43,24 +43,23 @@ class GraphicsComponent(Component):
     """
     List = []
 
-    def __init__(self, entity, image, layer, offset=(0, 0)):
-        """
-
-        :param entity:
-        :param image: path to image to use
-        :param layer: gui layer to draw image on
-        :param offset: fine tune image position against entity position
-        """
-        super().__init__(entity, 'graphics')
+    def __init__(self):
+        super().__init__()
+        self.tag = 'graphics'
+        self.offset = 0, 0
+        self.layer = 0
+        self.image = None
 
         self.draw_x = 0
         self.draw_y = 0
+        self.surface = None
 
-        self.offset = offset
-
-        self.layer = layer
-        self.surface = pygame.image.load(image)
         GraphicsComponent.List.append(self)
+
+    def start(self):
+        super().start()
+
+        self.surface = pygame.image.load(self.image)
 
     def update(self):
         super().update()
@@ -73,16 +72,29 @@ class MovementComponent(Component):
     Handles tile-based movement
     """
 
-    def __init__(self, entity, movement_speed, input_component, tile_map_component):
-        super().__init__(entity, 'movement')
+    def __init__(self):
+        super().__init__()
+        self.tag = 'movement'
+        self.position = 0, 0
+        self.tile_map_component = None
+        self.input_component = None
+        self.movement_speed = 0
 
-        self.position = tile_map_component.pixel_to_tile((entity.x, entity.y))
-
-        self.tile_map_component = tile_map_component
-        self.input_component = input_component
-        self.movement_speed = movement_speed
         self.direction = None
         self.target_pos = None
+
+    def start(self):
+        self.position = self.tile_map_component.pixel_to_tile((self.entity.x, self.entity.y))
+
+    def update(self):
+        super().update()
+
+        current_input = self.input_component.continuous_input
+        if current_input:
+            self.move_command(current_input)
+
+        if self.target_pos:
+            self.move()
 
     def move_command(self, direction):
         """
@@ -139,23 +151,14 @@ class MovementComponent(Component):
             self.entity.x += direction_vector[0] * self.movement_speed
             self.entity.y += direction_vector[1] * self.movement_speed
 
-    def update(self):
-        super().update()
-
-        current_input = self.input_component.continuous_input
-        if current_input:
-            self.move_command(current_input)
-
-        if self.target_pos:
-            self.move()
-
 
 class InputComponent(Component):
     """
     generic base class for providing input to an entity
     """
-    def __init__(self, entity, tag):
-        super().__init__(entity, tag)
+    def __init__(self):
+        super().__init__()
+        self.tag = 'input'
         self.continuous_input = None
         self.event_input = None
 
@@ -167,8 +170,9 @@ class PlayerInputComponent(InputComponent):
     """
     receives input from InputHandler
     """
-    def __init__(self, entity):
-        super().__init__(entity, 'player input')
+    def __init__(self):
+        super().__init__()
+        self.tag = 'player input'
 
     def update(self):
         super().update()
@@ -186,19 +190,24 @@ class TileMapComponent(Component):
             self.tile_id = tile_id
             self.tile_type = tile_type
 
-    def __init__(self, entity, tile_size, tile_map_data, tile_property_names):
-        super().__init__(entity, 'tile map')
+    def __init__(self):
+        super().__init__()
+        self.tag = 'tile map'
+        self.tile_map_data = None
 
-        self.map_width = tile_map_data['Width']
-        self.map_height = tile_map_data['Height']
-        self.tiles_data = tile_map_data['Tiles']
+        self.map_width = 0
+        self.map_height = 0
+        self.tiles_data = None
 
-        self.tile_size = tile_size
-        self.tile_property_names = tile_property_names
+        self.tile_size = 0
         self.tile_list = []
 
     def start(self):
         super().start()
+
+        self.map_width = self.tile_map_data['Width']
+        self.map_height = self.tile_map_data['Height']
+        self.tiles_data = self.tile_map_data['Tiles']
 
         for tile_datum in self.tiles_data:
             tile = TileMapComponent.Tile(tile_datum['Id'], tile_datum['Type'])

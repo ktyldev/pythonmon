@@ -40,6 +40,10 @@ class Entity:
             if component.tag == component_type:
                 return component
 
+    def add_component(self, component):
+        component.entity = self
+        self.components.append(component)
+
     def start(self):
         """
         called at start of scene
