@@ -1,3 +1,7 @@
+import JsonManager
+import SceneModule
+from Configuration import Configuration
+
 from Helpers import Helpers
 from Logger import Logger
 from Input import *
@@ -17,12 +21,14 @@ class Component:
         return None
 
     def __init__(self):
+        self.scene = None
         self.enabled = True
         self.tag = ''
         self.entity = None
         Component.List.append(self)
 
     def start(self):
+        self.scene = SceneModule.SceneManager.scene
         """
         called at the start of the scene
         :return:
@@ -34,6 +40,9 @@ class Component:
         called once per tick
         :return:
         """
+        return
+
+    def load_data(self, data):
         return
 
 
@@ -66,6 +75,11 @@ class GraphicsComponent(Component):
         self.draw_x = self.entity.x + self.offset[0]
         self.draw_y = self.entity.y + self.offset[1]
 
+    def load_data(self, data):
+        self.image = data[0]
+        self.layer = data[1]
+        self.offset = data[2]
+
 
 class MovementComponent(Component):
     """
@@ -84,6 +98,13 @@ class MovementComponent(Component):
         self.target_pos = None
 
     def start(self):
+        super().start()
+        overworld = self.scene.find_entity('overworld')
+        self.tile_map_component = overworld.get_component('tile map')
+
+        player = self.scene.find_entity('player')
+        self.input_component = player.get_component('player input')
+
         self.position = self.tile_map_component.pixel_to_tile((self.entity.x, self.entity.y))
 
     def update(self):
@@ -95,6 +116,9 @@ class MovementComponent(Component):
 
         if self.target_pos:
             self.move()
+
+    def load_data(self, data):
+        self.movement_speed = data[0]
 
     def move_command(self, direction):
         """
@@ -165,6 +189,9 @@ class InputComponent(Component):
     def update(self):
         super().update()
 
+    def load_data(self, data):
+        return
+
 
 class PlayerInputComponent(InputComponent):
     """
@@ -193,25 +220,32 @@ class TileMapComponent(Component):
     def __init__(self):
         super().__init__()
         self.tag = 'tile map'
-        self.tile_map_data = None
+
+        self.map_data_folder_path = ''
+        self.map_name = ''
+        self.tile_size = Configuration.tile_size
 
         self.map_width = 0
         self.map_height = 0
-        self.tiles_data = None
-
-        self.tile_size = 0
         self.tile_list = []
 
     def start(self):
         super().start()
 
-        self.map_width = self.tile_map_data['Width']
-        self.map_height = self.tile_map_data['Height']
-        self.tiles_data = self.tile_map_data['Tiles']
+        path = self.map_data_folder_path + self.map_name + '-map-data.json'
+        tile_map_data = JsonManager.get_data(path)
 
-        for tile_datum in self.tiles_data:
+        self.map_width = tile_map_data['Width']
+        self.map_height = tile_map_data['Height']
+
+        tiles_data = tile_map_data['Tiles']
+        for tile_datum in tiles_data:
             tile = TileMapComponent.Tile(tile_datum['Id'], tile_datum['Type'])
             self.tile_list.append(tile)
+
+    def load_data(self, data):
+        self.map_data_folder_path = data[0]
+        self.map_name = data[1]
 
     def id_to_coordinate(self, tile_id):
         y = tile_id // self.map_width

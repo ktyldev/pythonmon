@@ -7,19 +7,7 @@ class Entity:
     """
     List = []
 
-    @staticmethod
-    def find(name):
-        """
-        returns entity based on name
-        :param name: name of entity
-        :return:
-        """
-        for entity in Entity.List:
-            if entity.name == name:
-                return entity
-        return None
-
-    def __init__(self, name, position = (0, 0)):
+    def __init__(self, name, position=(0, 0)):
         self.name = name
         self.x = position[0]
         self.y = position[1]

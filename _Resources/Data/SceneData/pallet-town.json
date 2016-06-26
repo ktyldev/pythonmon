@@ -1,0 +1,49 @@
+{
+  "Entities":[
+    {
+      "Name":"overworld",
+      "X":0,
+      "Y":0,
+      "Components":[
+        {
+          "Type":"GraphicsComponent",
+          "ComponentData":[
+            "_Resources/Images/Overworld/Map/Background/pallet-town.png",
+            0,
+            [0, 0]
+          ]
+        },
+        {
+          "Type":"TileMapComponent",
+          "ComponentData":[
+            "_Resources/Data/MapData/",
+            "pallet-town"
+          ]
+        }
+      ]
+    },
+    {
+      "Name":"player",
+      "X":160,
+      "Y":160,
+      "Components":[
+        {
+          "Type":"GraphicsComponent",
+          "ComponentData":[
+            "_Resources/Images/Overworld/Characters/Player/player.png",
+            8,
+            [0, -6]
+          ]
+        },
+        {
+          "Type":"PlayerInputComponent",
+          "ComponentData":[]
+        },
+        {
+          "Type":"MovementComponent",
+          "ComponentData":[ 2 ]
+        }
+      ]
+    }
+  ]
+}

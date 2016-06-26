@@ -9,12 +9,15 @@ class Gui:
     """
     manages the display of graphics onscreen
     """
+
     _layer_limit = Configuration.layer_limit
     _screen_width = Configuration.screen_width
     _screen_height = Configuration.screen_height
-    _screen = pygame.display.set_mode((_screen_width, _screen_height))
     _draw_tiles = Configuration.draw_tiles
     _screen_centre = _screen_width / 2, _screen_height / 2
+    _ticks = 0
+
+    _screen = pygame.display.set_mode((_screen_width, _screen_height))
 
     focus = None
 
@@ -50,5 +53,6 @@ class Gui:
                     Gui._screen.blit(
                         graphics_component.surface, draw_with_offset)
 
+        Gui._ticks += 1
         # update the display
         pygame.display.flip()
