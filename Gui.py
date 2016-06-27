@@ -22,13 +22,16 @@ class Gui:
     focus = None
 
     @staticmethod
-    def set_focus(graphics_component):
+    def set_focus(entity_name):
         """
         centres view
-        :param graphics_component: component to keep at centre of screen
+        :param entity_name: entity to keep at centre of screen
         :return:
         """
-        Gui.focus = graphics_component
+
+        for graphics_component in GraphicsComponent.List:
+            if graphics_component.entity.name == entity_name:
+                graphics_component.is_focus = True
 
     @staticmethod
     def draw():
@@ -36,7 +39,13 @@ class Gui:
         draw all enabled GraphicsComponents layer by layer
         :return:
         """
-        draw_pos = Gui.focus.draw_x, Gui.focus.draw_y
+
+        focus = None
+        for graphics_component in GraphicsComponent.List:
+            if graphics_component.is_focus:
+                focus = graphics_component
+
+        draw_pos = focus.draw_x, focus.draw_y
         focus_vector = Helpers.subtract_vector(Gui._screen_centre, draw_pos)
 
         # clear the screen

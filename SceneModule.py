@@ -13,6 +13,7 @@ class Scene:
 
             entity = Entity.Entity(entity_data["Name"], position)
             for component_data in entity_data["Components"]:
+                
                 component_constructor = getattr(Component, component_data["Type"])
                 component = component_constructor()
 
@@ -39,7 +40,6 @@ class Scene:
         return None
 
 
-# TODO: another possible use of FilePathConstructor?
 class SceneManager:
     scene = None
     scene_data_folder_path = ''

@@ -58,6 +58,7 @@ class GraphicsComponent(Component):
         self.offset = 0, 0
         self.layer = 0
         self.image = None
+        self.is_focus = False
 
         self.draw_x = 0
         self.draw_y = 0
@@ -221,7 +222,7 @@ class TileMapComponent(Component):
         super().__init__()
         self.tag = 'tile map'
 
-        self.map_data_folder_path = ''
+        self.map_data_folder_path = '_Resources/Data/MapData/'
         self.map_name = ''
         self.tile_size = Configuration.tile_size
 
@@ -244,8 +245,7 @@ class TileMapComponent(Component):
             self.tile_list.append(tile)
 
     def load_data(self, data):
-        self.map_data_folder_path = data[0]
-        self.map_name = data[1]
+        self.map_name = data[0]
 
     def id_to_coordinate(self, tile_id):
         y = tile_id // self.map_width

@@ -19,6 +19,3 @@ class Configuration:
 
     # LOGGING
     log_all = int(config.get('Logging', 'all')) == 1
-
-    # TILES
-    property_names = str(config.get('TileProperties', 'property_names')).split(',')

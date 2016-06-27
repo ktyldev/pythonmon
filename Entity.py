@@ -5,7 +5,6 @@ class Entity:
     """
     representation for objects in the game world, container for components
     """
-    List = []
 
     def __init__(self, name, position=(0, 0)):
         self.name = name
@@ -13,8 +12,6 @@ class Entity:
         self.y = position[1]
         self.child_entities = []
         self.components = []
-
-        Entity.List.append(self)
 
         Logger.log(self.name + ' initialised at ' + str(self.x) + ", " + str(self.y))
 

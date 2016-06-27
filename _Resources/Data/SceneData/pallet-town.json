@@ -15,10 +15,7 @@
         },
         {
           "Type":"TileMapComponent",
-          "ComponentData":[
-            "_Resources/Data/MapData/",
-            "pallet-town"
-          ]
+          "ComponentData":[ "pallet-town" ]
         }
       ]
     },

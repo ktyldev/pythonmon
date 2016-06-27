@@ -1,9 +1,6 @@
-import JsonManager
-
 from Configuration import *
 
 from Gui import Gui
-from Entity import *
 from Component import *
 
 Logger.log('Program started')
@@ -25,7 +22,7 @@ _scene = SceneModule.SceneManager.scene
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Gui.set_focus(SceneModule.SceneManager.scene.find_entity('player').get_component('graphics'))
+Gui.set_focus('player')
 
 # start components
 
