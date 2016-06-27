@@ -1,6 +1,7 @@
 import JsonManager
 import Entity
 import Component
+import Logger
 
 
 class Scene:
@@ -13,15 +14,17 @@ class Scene:
 
             entity = Entity.Entity(entity_data["Name"], position)
             for component_data in entity_data["Components"]:
-                
-                component_constructor = getattr(Component, component_data["Type"])
-                component = component_constructor()
+                try:
+                    component_constructor = getattr(Component, component_data["Type"])
+                    component = component_constructor()
 
-                data = component_data["ComponentData"]
-                if not len(data) == 0:
-                    component.load_data(data)
+                    data = component_data["ComponentData"]
+                    if not len(data) == 0:
+                        component.load_data(data)
 
-                entity.add_component(component)
+                    entity.add_component(component)
+                except AttributeError:
+                    Logger.Logger.log(component_data["Type"] + " not recognised :/")
 
             self.entities.append(entity)
 
