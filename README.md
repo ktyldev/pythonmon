@@ -6,6 +6,12 @@ Pythonmon is an attempt at replicating the game engine of the [3rd generation Po
 * [Pygame for Python 3.5](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pygame)
 * [Guide for installing pygame](https://skellykiernan.wordpress.com/2015/01/04/python-pygame-install/)
 
+Tools must be developed to be able to use the engine, as the data-driven aspect of this engine relies mostly on piles of JSON files.
+
+* [Tile map maker (currently only available as a Windows Form)](https://github.com/monodokimes/pythonmontilemapmaker)
+* Scene Builder (work not started)
+* Map Builder (work not started)
+
 ## Configuration
 
 Various pieces of configuration can be found in `_config.cfg`. It is not recommended to edit this unless using the engine for a different game.
