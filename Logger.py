@@ -1,4 +1,4 @@
-from Configuration import Configuration
+import Configuration
 
 
 class Logger:

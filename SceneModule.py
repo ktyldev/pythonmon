@@ -2,6 +2,7 @@ import JsonManager
 import Entity
 import Component
 import Logger
+import Configuration
 
 
 class Scene:
@@ -45,7 +46,7 @@ class Scene:
 
 class SceneManager:
     scene = None
-    scene_data_folder_path = ''
+    scene_data_folder_path = Configuration.scene_data_folder_path
 
     @staticmethod
     def load_scene(scene_name):

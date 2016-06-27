@@ -1,5 +1,3 @@
-from Configuration import *
-
 from Gui import Gui
 from Component import *
 
@@ -9,40 +7,40 @@ Logger.log('Program started')
 
 pygame.init()
 
+# start game clock
 clock = pygame.time.Clock()
 
-gui_tick = Configuration.fps
-event_loop_tick = gui_tick * Configuration.event_loop_multiplier
+event_loop_tick = Gui.frames_per_second * Configuration.event_loop_multiplier
 
-ticks = 0
-
-SceneModule.SceneManager.scene_data_folder_path = Constants.SCENE_DATA_FOLDER_PATH
 SceneModule.SceneManager.load_scene('pallet-town')
 _scene = SceneModule.SceneManager.scene
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Gui.set_focus('player')
-
-# start components
-
 _scene.start()
 
 # LOOP ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+total_frames = 0
 while True:
     pygame.event.pump()
 
+    # handle continuous input
     InputHandler.event_tick()
 
-    if ticks % (event_loop_tick / gui_tick) == 0:
+    # this code is not called as often as the outer loop
+    if total_frames % (event_loop_tick / Gui.frames_per_second) == 0:
         Gui.draw()
 
+        # handle once-per-frame input
         InputHandler.gui_tick()
 
+        # update components
         _scene.update()
 
+        # clear input stream
         InputHandler.clear()
 
     clock.tick(event_loop_tick)
-    ticks += 1
+    total_frames += 1

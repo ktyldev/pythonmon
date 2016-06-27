@@ -1,6 +1,6 @@
 import JsonManager
 import SceneModule
-from Configuration import Configuration
+import Configuration
 
 from Helpers import Helpers
 from Logger import Logger

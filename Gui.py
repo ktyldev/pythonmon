@@ -1,6 +1,7 @@
 import pygame
+import Configuration
+import Constants
 
-from Configuration import *
 from Component import GraphicsComponent
 from Helpers import Helpers
 
@@ -16,6 +17,7 @@ class Gui:
     _draw_tiles = Configuration.draw_tiles
     _screen_centre = _screen_width / 2, _screen_height / 2
     _ticks = 0
+    frames_per_second = Configuration.fps
 
     _screen = pygame.display.set_mode((_screen_width, _screen_height))
 
