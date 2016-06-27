@@ -21,6 +21,7 @@ Various pieces of configuration can be found in `_config.cfg`. It is not recomme
 * write a tool to build scene data
 * remove binaries from git
 * a bunch of other stuff probably
+* optimise map data file layout (it's horrendously ineffecient)
 
 ## Contributors
 
