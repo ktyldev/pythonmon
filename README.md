@@ -10,6 +10,12 @@ Pythonmon is an attempt at replicating the game engine of the [3rd generation Po
 
 Various pieces of configuration can be found in `_config.cfg`. It is not recommended to edit this unless using the engine for a different game.
 
+## Current goals
+
+* write a tool to build scene data
+* remove binaries from git
+* a bunch of other stuff probably
+
 ## Contributors
 
 * [Cat Flynn](https://github.com/monodokimes)
