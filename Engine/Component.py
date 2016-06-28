@@ -1,10 +1,10 @@
-import JsonManager
-import SceneModule
-import Configuration
+from Engine import Configuration
+from Engine import JsonManager
+from Engine.Helpers import Helpers
+from Engine.Input import *
+from Engine.Logger import Logger
 
-from Helpers import Helpers
-from Logger import Logger
-from Input import *
+from Engine import SceneModule
 
 
 class Component:

@@ -1,4 +1,4 @@
-from Logger import Logger
+from Engine.Logger import Logger
 
 
 class Entity:

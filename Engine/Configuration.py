@@ -1,5 +1,6 @@
 import configparser
-import Constants
+
+from Engine import Constants
 
 config = configparser.RawConfigParser()
 config.read(Constants.CONFIG_PATH)

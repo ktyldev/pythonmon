@@ -1,9 +1,9 @@
 import pygame
-import Configuration
-import Constants
+from Engine import Constants
 
-from Component import GraphicsComponent
-from Helpers import Helpers
+from .Component import GraphicsComponent
+from .Helpers import Helpers
+from Engine import Configuration
 
 
 class Gui:
