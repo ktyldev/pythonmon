@@ -1,4 +1,4 @@
-from Engine import Configuration
+import Configuration
 
 
 class Logger:

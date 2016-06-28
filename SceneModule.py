@@ -1,9 +1,8 @@
-from Engine import Component
-from Engine import Entity
-from Engine import JsonManager
-from Engine import Logger
-
-from Engine import Configuration
+import JsonManager
+import Entity
+import Component
+import Logger
+import Configuration
 
 
 class Scene:
