@@ -1,4 +1,6 @@
 import sys
+import Game
+
 
 class ConsoleMenu:
     class ConsoleMenuItem:
@@ -36,3 +38,7 @@ class ConsoleMenu:
 
 def help():
     print('help')
+
+
+def run_game():
+    Game.run()

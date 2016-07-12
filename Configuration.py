@@ -12,7 +12,6 @@ fps = int(config.get('Display', 'fps'))
 draw_tiles = int(config.get('Display', 'draw_tiles')) == 1
 
 # ENGINE
-mode = config.get('Engine', 'mode')
 event_loop_multiplier = int(config.get('Engine', 'event_loop_multiplier'))
 tile_size = int(config.get('Engine', 'tile_size'))
 
