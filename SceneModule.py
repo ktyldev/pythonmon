@@ -54,3 +54,9 @@ class SceneManager:
         scene_data = JsonManager.get_data(path)
 
         SceneManager.scene = Scene(scene_name, scene_data['Entities'])
+
+    @staticmethod
+    def check_if_scene_exists(scene_name):
+        path = SceneManager.scene_data_folder_path + scene_name + '.json'
+        return JsonManager.check_for_file(path)
+

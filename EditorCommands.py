@@ -1,6 +1,8 @@
 import sys
 import Game
 import JsonManager
+from ConsoleModule import Console
+from Logger import Logger
 
 
 class ConsoleMenu:
@@ -16,7 +18,7 @@ class ConsoleMenu:
             try:
                 getattr(sys.modules[__name__], self.action)()
             except AttributeError:
-                print(self.action + ' is not recognised.')
+                Logger.log(self.action + ' is not recognised.')
 
     @staticmethod
     def from_data(name):
@@ -64,8 +66,5 @@ def run_game():
     Game.run()
 
 def start_console():
-    while True:
-        cmd = input('> ')
-        print('You entered: ' + cmd)
-        if cmd == 'exit':
-            break
+    console = Console()
+    console.run()
