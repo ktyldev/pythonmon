@@ -8,6 +8,10 @@
     {
       "Text":"Run Game",
       "Action":"run_game"
+    },
+    {
+      "Text":"Console",
+      "Action":"start_console"
     }
   ]
 }

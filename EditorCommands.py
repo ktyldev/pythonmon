@@ -62,3 +62,10 @@ def help():
 
 def run_game():
     Game.run()
+
+def start_console():
+    while True:
+        cmd = input('> ')
+        print('You entered: ' + cmd)
+        if cmd == 'exit':
+            break
