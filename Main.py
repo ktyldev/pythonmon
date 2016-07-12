@@ -1,5 +1,6 @@
 from Gui import Gui
 from Component import *
+from EditorCommands import *
 
 Logger.log('Program started')
 
@@ -46,7 +47,10 @@ def run_game():
 
 
 def run_editor():
-    pass
+    menu = ConsoleMenu('main menu')
+    menu_item = ConsoleMenu.ConsoleMenuItem('show help', 'help')
+    menu.add_menu_item(menu_item)
+    menu.run()
 
 # SETUP ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
