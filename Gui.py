@@ -1,5 +1,4 @@
 import pygame
-import Configuration
 import Constants
 
 from Component import GraphicsComponent
@@ -11,20 +10,20 @@ class Gui:
     manages the display of graphics onscreen
     """
 
-    _layer_limit = Configuration.layer_limit
-    _screen_width = Configuration.screen_width
-    _screen_height = Configuration.screen_height
-    _draw_tiles = Configuration.draw_tiles
-    _screen_centre = _screen_width / 2, _screen_height / 2
-    _ticks = 0
-    frames_per_second = Configuration.fps
+    def __init__(self, screen_size, layer_limit):
+        screen_width = screen_size[0]
+        screen_height = screen_size[1]
 
-    _screen = pygame.display.set_mode((_screen_width, _screen_height))
+        self.layer_limit = layer_limit
+        self.screen_centre = screen_width / 2, screen_height / 2
+        self.ticks = 0
 
-    focus = None
+        self.screen = pygame.display.set_mode(screen_size)
 
-    @staticmethod
-    def set_focus(entity_name):
+        self.focus = None
+
+
+    def set_focus(self, entity_name):
         """
         centres view
         :param entity_name: entity to keep at centre of screen
@@ -35,8 +34,8 @@ class Gui:
             if graphics_component.entity.name == entity_name:
                 graphics_component.is_focus = True
 
-    @staticmethod
-    def draw():
+
+    def draw(self):
         """
         draw all enabled GraphicsComponents layer by layer
         :return:
@@ -48,12 +47,12 @@ class Gui:
                 focus = graphics_component
 
         draw_pos = focus.draw_x, focus.draw_y
-        focus_vector = Helpers.subtract_vector(Gui._screen_centre, draw_pos)
+        focus_vector = Helpers.subtract_vector(self.screen_centre, draw_pos)
 
         # clear the screen
-        Gui._screen.fill(Constants.BLACK)
+        self.screen.fill(Constants.BLACK)
 
-        for layer in range(0, Gui._layer_limit):
+        for layer in range(0, self.layer_limit):
 
             for graphics_component in GraphicsComponent.List:
                 if graphics_component.layer == layer and graphics_component.enabled:
@@ -61,9 +60,9 @@ class Gui:
                     draw_rect = graphics_component.draw_x, graphics_component.draw_y
                     draw_with_offset = Helpers.add_vectors(draw_rect, focus_vector)
 
-                    Gui._screen.blit(
+                    self.screen.blit(
                         graphics_component.surface, draw_with_offset)
 
-        Gui._ticks += 1
+        self.ticks += 1
         # update the display
         pygame.display.flip()

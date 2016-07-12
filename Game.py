@@ -1,5 +1,5 @@
 import pygame
-from Gui import Gui
+import Gui
 import Configuration
 import SceneModule
 from Input import InputHandler
@@ -9,14 +9,19 @@ def run():
     # start game clock
     clock = pygame.time.Clock()
 
-    event_loop_tick = Gui.frames_per_second * Configuration.event_loop_multiplier
+    # construct GUI
+    screen_size = Configuration.screen_width, Configuration.screen_height
+    gui = Gui.Gui(screen_size, Configuration.layer_limit)
 
+    # define event loop tick (faster than gui update)
+    event_loop_tick = Configuration.fps * Configuration.event_loop_multiplier
+
+    # set up scene
     SceneModule.SceneManager.load_scene('pallet-town')
     _scene = SceneModule.SceneManager.scene
 
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    Gui.set_focus('player')
+    # centre player on the screen
+    gui.set_focus('player')
     _scene.start()
 
     # GAME LOOP ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -29,8 +34,8 @@ def run():
         InputHandler.event_tick()
 
         # this code is not called as often as the outer loop
-        if total_frames % (event_loop_tick / Gui.frames_per_second) == 0:
-            Gui.draw()
+        if total_frames % (event_loop_tick / Configuration.fps) == 0:
+            gui.draw()
 
             # handle once-per-frame input
             InputHandler.gui_tick()
