@@ -1,0 +1,13 @@
+{
+  "Title":"Start Menu",
+  "Items":[
+    {
+      "Text":"Help",
+      "Action":"help"
+    },
+    {
+      "Text":"Run Game",
+      "Action":"run_game"
+    }
+  ]
+}

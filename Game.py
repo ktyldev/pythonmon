@@ -9,10 +9,6 @@ def run():
     # start game clock
     clock = pygame.time.Clock()
 
-    # construct GUI
-    screen_size = Configuration.screen_width, Configuration.screen_height
-    gui = Gui.Gui(screen_size, Configuration.layer_limit)
-
     # define event loop tick (faster than gui update)
     event_loop_tick = Configuration.fps * Configuration.event_loop_multiplier
 
@@ -20,7 +16,9 @@ def run():
     SceneModule.SceneManager.load_scene('pallet-town')
     _scene = SceneModule.SceneManager.scene
 
-    # centre player on the screen
+    # construct GUI
+    screen_size = Configuration.screen_width, Configuration.screen_height
+    gui = Gui.Gui(screen_size, Configuration.layer_limit)
     gui.set_focus('player')
     _scene.start()
 
@@ -40,7 +38,6 @@ def run():
             # handle once-per-frame input
             InputHandler.gui_tick()
 
-            # update components
             _scene.update()
 
             # clear input stream
