@@ -94,8 +94,9 @@ class GraphicsComponent(Component):
 
     def start(self):
         super().start()
-
         self.surface = pygame.image.load(self.image)
+        self.draw_x = self.entity.x + self.offset[0]
+        self.draw_y = self.entity.y + self.offset[1]
 
     def update(self):
         super().update()

@@ -4,6 +4,10 @@ import Constants
 config = configparser.RawConfigParser()
 config.read(Constants.CONFIG_PATH)
 
+# EDITOR
+editor_width = int(config.get('Editor', 'width'))
+editor_height = int(config.get('Editor', 'height'))
+
 # DISPLAY
 screen_width = int(config.get('Display', 'width'))
 screen_height = int(config.get('Display', 'height'))

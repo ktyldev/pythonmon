@@ -61,7 +61,6 @@ class ConsoleMenu:
 def help():
     print('help')
 
-
 def run_game():
     Game.run()
 

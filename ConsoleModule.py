@@ -1,3 +1,5 @@
+import Configuration
+import Gui
 from Logger import Logger
 import SceneModule
 
@@ -32,8 +34,17 @@ class Console:
         scene_name = args[0]
         scene_exists = SceneModule.SceneManager.check_if_scene_exists(scene_name)
 
+        # load scene data if it exists, otherwise create a new one
         if scene_exists:
             SceneModule.SceneManager.load_scene(args[0])
         else:
             Logger.log('New scene: ' + scene_name)
+
+        SceneModule.SceneManager.scene.start()
         Logger.log('Scene loaded: ' + scene_name)
+
+
+        screen_size = Configuration.editor_width, Configuration.editor_height
+
+        gui = Gui.Gui(screen_size, Configuration.layer_limit)
+        gui.draw()
