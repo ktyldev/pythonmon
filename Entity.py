@@ -1,6 +1,5 @@
 from Logger import Logger
 
-
 class Entity:
     """
     representation for objects in the game world, container for components
@@ -12,6 +11,7 @@ class Entity:
         self.y = position[1]
         self.child_entities = []
         self.components = []
+        self.direction = None
 
         Logger.log(self.name + ' initialised at ' + str(self.x) + ", " + str(self.y))
 

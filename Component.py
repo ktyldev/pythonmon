@@ -130,8 +130,9 @@ class MovementComponent(Component):
         overworld = self.scene.find_entity('overworld')
         self.tile_map_component = overworld.get_component('tile map')
 
-        player = self.scene.find_entity('player')
-        self.input_component = player.get_component('player input')
+        self.player = self.scene.find_entity('player')
+
+        self.input_component = self.player.get_component('player input')
 
         self.position = self.tile_map_component.pixel_to_tile((self.entity.x, self.entity.y))
 
@@ -163,7 +164,7 @@ class MovementComponent(Component):
         :param direction: target direction
         :return:
         """
-        self.direction = direction
+        self.player.direction = direction
 
         direction_vector = Helpers.direction_to_direction_vector(direction)
 
@@ -198,7 +199,7 @@ class MovementComponent(Component):
             if direction:
                 self.set_target(direction)
         else:
-            direction_vector = Helpers.direction_to_direction_vector(self.direction)
+            direction_vector = Helpers.direction_to_direction_vector(self.player.direction)
 
             self.entity.x += direction_vector[0] * self.movement_speed
             self.entity.y += direction_vector[1] * self.movement_speed
