@@ -1,8 +1,8 @@
 import pygame
-import Constants
+import constants
 
-from Component import GraphicsComponent
-from Helpers import Helpers
+from component import GraphicsComponent
+from helpers import Helpers
 
 
 class Gui:
@@ -42,7 +42,7 @@ class Gui:
         """
 
         # clear the screen
-        self.screen.fill(Constants.BLACK)
+        self.screen.fill(constants.BLACK)
 
         camera_offset = self.get_camera_offset()
 

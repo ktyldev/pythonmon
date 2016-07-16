@@ -1,8 +1,8 @@
 import configparser
-import Constants
+import constants
 
 config = configparser.RawConfigParser()
-config.read(Constants.CONFIG_PATH)
+config.read(constants.CONFIG_PATH)
 
 # EDITOR
 editor_width = int(config.get('Editor', 'width'))

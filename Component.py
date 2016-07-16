@@ -1,10 +1,10 @@
-import JsonManager
-import SceneModule
-import Configuration
+import jsonmanager
+import scenemodule
+import configuration
 
-from Helpers import Helpers
-from Logger import Logger
-from Input import *
+from helpers import Helpers
+from logger import Logger
+from input import *
 
 
 # COMPONENT USAGE
@@ -54,7 +54,7 @@ class Component:
         self.entity = None
 
     def start(self):
-        self.scene = SceneModule.SceneManager.scene
+        self.scene = scenemodule.SceneManager.scene
         """
         called at the start of the scene
         :return:
@@ -252,7 +252,7 @@ class TileMapComponent(Component):
 
         self.map_data_folder_path = '_Resources/Data/MapData/'
         self.map_name = ''
-        self.tile_size = Configuration.tile_size
+        self.tile_size = configuration.tile_size
 
         self.map_width = 0
         self.map_height = 0
@@ -262,7 +262,7 @@ class TileMapComponent(Component):
         super().start()
 
         path = self.map_data_folder_path + self.map_name + '-map-data.json'
-        tile_map_data = JsonManager.get_data(path)
+        tile_map_data = jsonmanager.get_data(path)
 
         self.map_width = tile_map_data['Width']
         self.map_height = tile_map_data['Height']

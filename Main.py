@@ -1,5 +1,5 @@
-from Logger import Logger
-from EditorCommands import *
+from logger import Logger
+from editorcommands import *
 
 Logger.log('Program started')
 

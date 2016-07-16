@@ -1,4 +1,4 @@
-from Logger import Logger
+from logger import Logger
 
 class Entity:
     """

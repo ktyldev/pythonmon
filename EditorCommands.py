@@ -1,8 +1,8 @@
 import sys
-import Game
-import JsonManager
-from ConsoleModule import Console
-from Logger import Logger
+import game
+import jsonmanager
+from consolemodule import Console
+from logger import Logger
 
 
 class ConsoleMenu:
@@ -23,7 +23,7 @@ class ConsoleMenu:
     @staticmethod
     def from_data(name):
         path = ConsoleMenu.MENU_DATA_FILE_PATH + name + '.json'
-        data = JsonManager.get_data(path)
+        data = jsonmanager.get_data(path)
 
         title = data['Title']
         item_data = data['Items']
@@ -62,7 +62,7 @@ def help():
     print('help')
 
 def run_game():
-    Game.run()
+    game.run()
 
 def start_console():
     console = Console()

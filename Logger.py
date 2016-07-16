@@ -1,8 +1,8 @@
-import Configuration
+import configuration
 
 
 class Logger:
-    enabled = Configuration.log_all
+    enabled = configuration.log_all
     
     @staticmethod
     def log(text):

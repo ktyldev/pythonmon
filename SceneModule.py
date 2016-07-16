@@ -1,8 +1,8 @@
-import JsonManager
-import Entity
-import Component
-import Logger
-import Configuration
+import jsonmanager
+import entity
+import component
+import logger
+import configuration
 
 
 class Scene:
@@ -13,10 +13,10 @@ class Scene:
         for entity_data in entities_data:
             position = (entity_data["X"], entity_data["Y"])
 
-            entity = Entity.Entity(entity_data["Name"], position)
+            entity = entity.Entity(entity_data["Name"], position)
             for component_data in entity_data["Components"]:
                 try:
-                    component_constructor = getattr(Component, component_data["Type"])
+                    component_constructor = getattr(component, component_data["Type"])
                     component = component_constructor()
 
                     data = component_data["ComponentData"]
@@ -25,7 +25,7 @@ class Scene:
 
                     entity.add_component(component)
                 except AttributeError:
-                    Logger.Logger.log(component_data["Type"] + " not recognised :/")
+                    logger.Logger.log(component_data["Type"] + " not recognised :/")
 
             self.entities.append(entity)
 
@@ -46,17 +46,17 @@ class Scene:
 
 class SceneManager:
     scene = None
-    scene_data_folder_path = Configuration.scene_data_folder_path
+    scene_data_folder_path = configuration.scene_data_folder_path
 
     @staticmethod
     def load_scene(scene_name):
         path = SceneManager.scene_data_folder_path + scene_name + '.json'
-        scene_data = JsonManager.get_data(path)
+        scene_data = jsonmanager.get_data(path)
 
         SceneManager.scene = Scene(scene_name, scene_data['Entities'])
 
     @staticmethod
     def check_if_scene_exists(scene_name):
         path = SceneManager.scene_data_folder_path + scene_name + '.json'
-        return JsonManager.check_for_file(path)
+        return jsonmanager.check_for_file(path)
 
