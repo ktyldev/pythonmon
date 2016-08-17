@@ -1,7 +1,7 @@
 import configuration
-import gui
+import gui_module
 from logger import Logger
-import scenemodule
+import scene
 
 
 class Console:
@@ -32,15 +32,15 @@ class Console:
 
     def scene(self, args):
         scene_name = args[0]
-        scene_exists = scenemodule.SceneManager.check_if_scene_exists(scene_name)
+        scene_exists = scene.SceneManager.check_if_scene_exists(scene_name)
 
         # load scene data if it exists, otherwise create a new one
         if scene_exists:
-            scenemodule.SceneManager.load_scene(args[0])
+            scene.SceneManager.load_scene(args[0])
         else:
             Logger.log('New scene: ' + scene_name)
 
-        scenemodule.SceneManager.scene.start()
+        scene.SceneManager.scene.start()
         Logger.log('Scene loaded: ' + scene_name)
 
 

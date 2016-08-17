@@ -1,7 +1,7 @@
 import pygame
 import constants
 
-from component import GraphicsComponent
+from component_module import GraphicsComponent
 from helpers import Helpers
 
 

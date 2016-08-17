@@ -1,7 +1,7 @@
 import pygame
-import gui
+from gui_module import Gui
 import configuration
-import scenemodule
+import scene
 from input import InputHandler
 
 def run():
@@ -13,12 +13,12 @@ def run():
     event_loop_tick = configuration.fps * configuration.event_loop_multiplier
 
     # set up scene
-    scenemodule.SceneManager.load_scene('pallet-town')
-    _scene = scenemodule.SceneManager.scene
+    scene.SceneManager.load_scene('pallet-town')
+    _scene = scene.SceneManager.scene
 
     # construct GUI
     screen_size = configuration.screen_width, configuration.screen_height
-    gui = gui.Gui(screen_size, configuration.layer_limit)
+    gui = Gui(screen_size, configuration.layer_limit)
     gui.set_focus('player')
     _scene.start()
 

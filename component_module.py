@@ -1,5 +1,5 @@
 import jsonmanager
-import scenemodule
+import scene
 import configuration
 
 from helpers import Helpers
@@ -54,7 +54,7 @@ class Component:
         self.entity = None
 
     def start(self):
-        self.scene = scenemodule.SceneManager.scene
+        self.scene = scene.SceneManager.scene
         """
         called at the start of the scene
         :return:

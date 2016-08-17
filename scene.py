@@ -1,6 +1,6 @@
 import jsonmanager
-import entity
-import component
+from entity import Entity
+import component_module
 import logger
 import configuration
 
@@ -13,10 +13,10 @@ class Scene:
         for entity_data in entities_data:
             position = (entity_data["X"], entity_data["Y"])
 
-            entity = entity.Entity(entity_data["Name"], position)
+            entity = Entity(entity_data["Name"], position)
             for component_data in entity_data["Components"]:
                 try:
-                    component_constructor = getattr(component, component_data["Type"])
+                    component_constructor = getattr(component_module, component_data["Type"])
                     component = component_constructor()
 
                     data = component_data["ComponentData"]
