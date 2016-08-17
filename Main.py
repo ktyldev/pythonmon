@@ -1,4 +1,3 @@
-from logger import Logger
 from editorcommands import *
 
 Logger.log('Program started')
