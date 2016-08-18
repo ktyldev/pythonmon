@@ -12,6 +12,7 @@ Various pieces of configuration can be found in `_config.cfg`. It is not recomme
 
 ## Current goals
 
+* **rename modules to make more sense (suggestions very welcome)**
 * implement instruction set for building scenes
 * remove binaries from repo
 * optimise map data file layout (it's horrendously ineffecient)
@@ -19,3 +20,7 @@ Various pieces of configuration can be found in `_config.cfg`. It is not recomme
 ## Contributors
 
 * [Cat Flynn](https://github.com/monodokimes)
+
+## DISCLAIMER
+
+I'm still very new to software design, source control and open-source projects in general. If there's anything I could be doing better *please, please* tell me and I will do my best to make sure that I take your advice on board!
