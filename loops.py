@@ -1,8 +1,24 @@
 import pygame
-from gui_module import Gui
 import configuration
 import scene
+
+from gui_module import Gui
 from input import InputHandler
+
+
+class Loop:
+    def __init__(self):
+        pass
+
+    def setup(self):
+        pass
+
+    def tick(self):
+        pass
+
+    def run(self):
+        pass
+
 
 def run():
     pygame.init()

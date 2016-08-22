@@ -3,7 +3,7 @@
   "Items":[
     {
       "Text":"Help",
-      "Action":"help"
+      "Action":"print_help"
     },
     {
       "Text":"Run Game",

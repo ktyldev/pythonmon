@@ -2,9 +2,8 @@ from editorcommands import *
 
 Logger.log('Program started')
 
-def run_editor():
-    start_menu = ConsoleMenu.from_data('start-menu')
-    while True:
-        start_menu.run()
+start_menu = ConsoleMenu.from_data('start-menu')
 
-run_editor()
+start_menu.run()
+
+

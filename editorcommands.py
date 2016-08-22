@@ -1,5 +1,5 @@
 import sys
-import game
+import loops
 import jsonmanager
 from consolemodule import Console
 from logger import Logger
@@ -58,11 +58,14 @@ class ConsoleMenu:
 
         self.get_menu_item(int(result)).invoke()
 
-def help():
+
+def print_help():
     print('help')
 
+
 def run_game():
-    game.run()
+    loops.run()
+
 
 def start_console():
     console = Console()

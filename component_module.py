@@ -39,6 +39,7 @@ class Component:
     """
     generic base class for defining entity behaviour
     """
+    List = []
 
     @staticmethod
     def find(tag):
@@ -52,6 +53,7 @@ class Component:
         self.enabled = True
         self.tag = ''
         self.entity = None
+        Component.List.append(self)
 
     def start(self):
         self.scene = scene.SceneManager.scene
@@ -124,6 +126,7 @@ class MovementComponent(Component):
 
         self.direction = None
         self.target_pos = None
+        self.player = None
 
     def start(self):
         super().start()
