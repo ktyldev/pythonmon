@@ -10,8 +10,9 @@ Pythonmon is an attempt at replicating the game engine of the [3rd generation Po
 
 Various pieces of configuration can be found in `_config.cfg`. It is not recommended to edit this unless using the engine for a different game.
 
-## Current goals
+## TODO
 
+* **remove `None` input values, replace with `None` input type to reduce complexity on the component level
 * **rename modules to make more sense (suggestions very welcome)**
 * implement instruction set for building scenes
 * remove binaries from repo
