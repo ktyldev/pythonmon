@@ -32,18 +32,17 @@ class Loop:
 class DefaultGameLoop(Loop):
     def __init__(self):
         super().__init__()
-        self.screen_width = configuration.screen_width
-        self.screen_height = configuration.screen_height
-        screen_size = self.screen_width, self.screen_height
+        screen_size = configuration.screen_width, configuration.screen_height
         self.gui = Gui(screen_size, configuration.layer_limit)
+        self.input_manager = InputManager()
         self.scene = None
 
     def tick(self):
         pygame.event.pump()
-        event_input = InputManager.event_tick()
+        event_input = self.input_manager.dict_tick('event')
         if self.total_frames % configuration.event_loop_multiplier == 0:
             self.gui.draw()
-            cont_input = InputManager.gui_tick()
+            cont_input = self.input_manager.dict_tick('continuous')
 
             self.scene.update(event_input, cont_input)
 

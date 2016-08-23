@@ -38,77 +38,27 @@ class KeyboardInputHandler:
 
 
 class InputManager:
-    handlers = {}
-    current = {}
+    def __init__(self):
+        self.handlers = {}
 
-    current_event = None
-    current_continuous = None
+        # TODO: don't hardcode this stuff
+        event_handler = KeyboardInputHandler()
+        event_handler.add_mapping(pygame.K_z, KeyboardInputType.A)
+        event_handler.add_mapping(pygame.K_x, KeyboardInputType.B)
+        event_handler.add_mapping(pygame.K_c, KeyboardInputType.START)
+        event_handler.add_mapping(pygame.K_v, KeyboardInputType.SELECT)
+        self.register_handler(event_handler, 'event')
 
-    event_handler = KeyboardInputHandler()
-    event_handler.add_mapping(pygame.K_z, KeyboardInputType.A)
-    event_handler.add_mapping(pygame.K_x, KeyboardInputType.B)
-    event_handler.add_mapping(pygame.K_c, KeyboardInputType.START)
-    event_handler.add_mapping(pygame.K_v, KeyboardInputType.SELECT)
+        continuous_handler = KeyboardInputHandler()
+        continuous_handler.add_mapping(pygame.K_LEFT, KeyboardInputType.LEFT)
+        continuous_handler.add_mapping(pygame.K_UP, KeyboardInputType.UP)
+        continuous_handler.add_mapping(pygame.K_RIGHT, KeyboardInputType.RIGHT)
+        continuous_handler.add_mapping(pygame.K_DOWN, KeyboardInputType.DOWN)
+        self.register_handler(continuous_handler, 'continuous')
 
-    continuous_handler = KeyboardInputHandler()
-    continuous_handler.add_mapping(pygame.K_LEFT, KeyboardInputType.LEFT)
-    continuous_handler.add_mapping(pygame.K_UP, KeyboardInputType.UP)
-    continuous_handler.add_mapping(pygame.K_RIGHT, KeyboardInputType.RIGHT)
-    continuous_handler.add_mapping(pygame.K_DOWN, KeyboardInputType.DOWN)
+    def register_handler(self, handler, name):
+        self.handlers[name] = handler
 
-    @staticmethod
-    def register_handler(name, handler):
-        InputManager.handlers[name] = handler
-
-    @staticmethod
-    def dict_tick(handler_name):
-        handler = InputManager.handlers[handler_name]
-        tick_result = handler.tick()
-        InputManager.current[handler_name] = tick_result
-
-    @staticmethod
-    def event_tick():
-        return InputManager.event_handler.tick()
-
-    @staticmethod
-    def gui_tick():
-        return InputManager.continuous_handler.tick()
-
-    '''
-    @staticmethod
-    def event_tick():
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
-        keys = pygame.key.get_pressed()
-
-        if keys[pygame.K_z]:
-            InputHandler.current_event = KeyboardInputType.A
-        elif keys[pygame.K_x]:
-            InputHandler.current_event = KeyboardInputType.B
-        elif keys[pygame.K_c]:
-            InputHandler.current_event = KeyboardInputType.START
-        elif keys[pygame.K_v]:
-            InputHandler.current_event = KeyboardInputType.SELECT
-
-    @staticmethod
-    def gui_tick():
-
-        keys = pygame.key.get_pressed()
-
-        if keys[pygame.K_UP]:
-            InputHandler.current_continuous = KeyboardInputType.UP
-        elif keys[pygame.K_RIGHT]:
-            InputHandler.current_continuous = KeyboardInputType.RIGHT
-        elif keys[pygame.K_DOWN]:
-            InputHandler.current_continuous = KeyboardInputType.DOWN
-        elif keys[pygame.K_LEFT]:
-            InputHandler.current_continuous = KeyboardInputType.LEFT
-
-    @staticmethod
-    def clear():
-        InputHandler.current_event = None
-        InputHandler.current_continuous = None'''
+    def dict_tick(self, handler_name):
+        handler = self.handlers[handler_name]
+        return handler.tick()
