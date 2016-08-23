@@ -65,8 +65,9 @@ def print_help():
 
 
 def run_game():
-    loop = game_loop.Loop()
-    loop.run('pallet-town')
+    loop = game_loop.DefaultGameLoop()
+    loop.set_scene('pallet-town')
+    loop.run()
 
 
 def start_console():
