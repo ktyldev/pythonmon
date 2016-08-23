@@ -22,7 +22,6 @@ class Gui:
 
         self.focus = None
 
-
     def set_focus(self, entity_name):
         """
         centres view
@@ -33,7 +32,6 @@ class Gui:
         for graphics_component in GraphicsComponent.List:
             if graphics_component.entity.name == entity_name:
                 graphics_component.is_focus = True
-
 
     def draw(self):
         """

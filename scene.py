@@ -3,12 +3,15 @@ from entity import Entity
 import component_module
 import logger
 import configuration
+import input
 
 
 class Scene:
     def __init__(self, name, entities_data):
         self.name = name
         self.entities = []
+        self.event_input = input.KeyboardInputType.NONE
+        self.cont_input = input.KeyboardInputType.NONE
 
         for entity_data in entities_data:
             position = (entity_data["X"], entity_data["Y"])
@@ -33,7 +36,9 @@ class Scene:
         for entity in self.entities:
             entity.start()
 
-    def update(self):
+    def update(self, event_input, cont_input):
+        self.event_input = event_input
+        self.cont_input = cont_input
         for entity in self.entities:
             entity.update()
 

@@ -17,6 +17,7 @@ fps = int(config.get('Display', 'fps'))
 # ENGINE
 event_loop_multiplier = int(config.get('Engine', 'event_loop_multiplier'))
 tile_size = int(config.get('Engine', 'tile_size'))
+clock_tick = event_loop_multiplier * fps
 
 # LOGGING
 log_all = int(config.get('Logging', 'all')) == 1

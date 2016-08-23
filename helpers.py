@@ -23,5 +23,7 @@ class Helpers:
             return 0, 1
         elif direction == 'left':
             return -1, 0
+        elif direction == 'none':
+            return 0, 0
         else:
             raise Exception('not a valid direction!')

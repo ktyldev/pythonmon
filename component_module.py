@@ -236,8 +236,8 @@ class PlayerInputComponent(InputComponent):
     def update(self):
         super().update()
 
-        self.event_input = InputHandler.current_event
-        self.continuous_input = InputHandler.current_continuous
+        self.event_input = self.scene.event_input
+        self.continuous_input = self.scene.cont_input
 
 
 class TileMapComponent(Component):

@@ -3,14 +3,13 @@ import configuration
 import scene
 
 from gui_module import Gui
-from input import InputHandler
+from input import InputManager
 from logger import Logger
 
 
 class Loop:
     def __init__(self):
         self.clock = None
-        self.clock_tick = configuration.fps * configuration.event_loop_multiplier
         self.total_frames = 0
         self.tick_method = None
 
@@ -26,7 +25,7 @@ class Loop:
         self.total_frames = 0
         while True:
             self.tick_method()
-            self.clock.tick(self.clock_tick)
+            self.clock.tick(configuration.clock_tick)
             self.total_frames += 1
 
 
@@ -35,17 +34,18 @@ class DefaultGameLoop(Loop):
         super().__init__()
         self.screen_width = configuration.screen_width
         self.screen_height = configuration.screen_height
-        self.gui = Gui((self.screen_width, self.screen_height), configuration.layer_limit)
+        screen_size = self.screen_width, self.screen_height
+        self.gui = Gui(screen_size, configuration.layer_limit)
         self.scene = None
 
     def tick(self):
         pygame.event.pump()
-        InputHandler.event_tick()
+        event_input = InputManager.event_tick()
         if self.total_frames % configuration.event_loop_multiplier == 0:
             self.gui.draw()
-            self.scene.update()
-            InputHandler.gui_tick()
-            InputHandler.clear()
+            cont_input = InputManager.gui_tick()
+
+            self.scene.update(event_input, cont_input)
 
     def run(self):
         self.scene.start()
