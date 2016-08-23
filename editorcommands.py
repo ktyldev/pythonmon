@@ -1,6 +1,7 @@
 import sys
-import loops
+import game_loop
 import jsonmanager
+
 from consolemodule import Console
 from logger import Logger
 
@@ -64,7 +65,8 @@ def print_help():
 
 
 def run_game():
-    loops.run()
+    loop = game_loop.Loop()
+    loop.run('pallet-town')
 
 
 def start_console():
