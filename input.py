@@ -19,6 +19,17 @@ class KeyboardInputHandler:
         self.inputs = []
         self.outputs = []
 
+    def add_mappings(self, mappings):
+        """
+        adds many input mappings
+        :param mappings: key-value pairs [pygame keycode, input type]
+        :return:
+        """
+        for mapping in mappings:
+            key = mapping[0]
+            input_type = mapping[1]
+            self.add_mapping(key, input_type)
+
     def add_mapping(self, input_key, output):
         self.inputs.append(input_key)
         self.outputs.append(output)
@@ -43,17 +54,36 @@ class InputManager:
 
         # TODO: don't hardcode this stuff
         event_handler = KeyboardInputHandler()
-        event_handler.add_mapping(pygame.K_z, KeyboardInputType.A)
-        event_handler.add_mapping(pygame.K_x, KeyboardInputType.B)
-        event_handler.add_mapping(pygame.K_c, KeyboardInputType.START)
-        event_handler.add_mapping(pygame.K_v, KeyboardInputType.SELECT)
+        event_mappings = [
+            [122, 'a'],
+            [120, 'b'],
+            [99, 'start'],
+            [118, 'select']
+        ]
+        event_handler.add_mappings(event_mappings)
+        '''
+        event_handler.add_mapping(pygame.K_z, KeyboardInputType.A) # 122
+        event_handler.add_mapping(pygame.K_x, KeyboardInputType.B)  # 120
+        event_handler.add_mapping(pygame.K_c, KeyboardInputType.START) # 99
+        event_handler.add_mapping(pygame.K_v, KeyboardInputType.SELECT) # 118
+        '''
         self.register_handler(event_handler, 'event')
 
         continuous_handler = KeyboardInputHandler()
-        continuous_handler.add_mapping(pygame.K_LEFT, KeyboardInputType.LEFT)
-        continuous_handler.add_mapping(pygame.K_UP, KeyboardInputType.UP)
-        continuous_handler.add_mapping(pygame.K_RIGHT, KeyboardInputType.RIGHT)
-        continuous_handler.add_mapping(pygame.K_DOWN, KeyboardInputType.DOWN)
+        cont_mappings = [
+            [276, 'left'],
+            [273, 'up'],
+            [275, 'right'],
+            [274, 'down']
+        ]
+        continuous_handler.add_mappings(cont_mappings)
+
+        '''
+        continuous_handler.add_mapping(pygame.K_LEFT, KeyboardInputType.LEFT) # 276
+        continuous_handler.add_mapping(pygame.K_UP, KeyboardInputType.UP) # 273
+        continuous_handler.add_mapping(pygame.K_RIGHT, KeyboardInputType.RIGHT) # 275
+        continuous_handler.add_mapping(pygame.K_DOWN, KeyboardInputType.DOWN) # 274
+        '''
         self.register_handler(continuous_handler, 'continuous')
 
     def register_handler(self, handler, name):

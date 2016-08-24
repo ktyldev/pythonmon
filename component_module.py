@@ -1,5 +1,4 @@
 import jsonmanager
-import scene
 import configuration
 import logger
 
@@ -56,7 +55,6 @@ class Component:
         Component.List.append(self)
 
     def start(self):
-        self.scene = scene.SceneManager.scene
         """
         called at the start of the scene
         :return:
@@ -188,11 +186,12 @@ class MovementComponent(Component):
         move towards target based on movement speed
         :return:
         """
-        pixel_pos = (self.entity.x, self.entity.y)
+        own_pixel_pos = (self.entity.x, self.entity.y)
+        target_pixel_pos = self.tile_map_component.tile_to_pixel(self.target_pos)
 
         # You have reached your destination
 
-        target_reached = Helpers.vector_equality(pixel_pos, self.tile_map_component.tile_to_pixel(self.target_pos))
+        target_reached = Helpers.vector_equality(own_pixel_pos, target_pixel_pos)
 
         if target_reached:
             self.position = self.target_pos

@@ -11,8 +11,8 @@ class Scene:
     def __init__(self, name, entities_data):
         self.name = name
         self.entities = []
-        self.event_input = input.KeyboardInputType.NONE
-        self.cont_input = input.KeyboardInputType.NONE
+        self.event_input = None
+        self.cont_input = None
 
         for entity_data in entities_data:
             position = (entity_data["X"], entity_data["Y"])
@@ -22,6 +22,7 @@ class Scene:
                 try:
                     component_constructor = getattr(component_module, component_data["Type"])
                     component = component_constructor()
+                    component.scene = self
 
                     data = component_data["ComponentData"]
                     if not len(data) == 0:
@@ -34,6 +35,9 @@ class Scene:
             self.entities.append(entity)
 
     def start(self):
+        self.event_input = input.KeyboardInputType.NONE
+        self.cont_input = input.KeyboardInputType.NONE
+
         for entity in self.entities:
             entity.start()
 
@@ -51,18 +55,19 @@ class Scene:
 
 
 class SceneManager:
-    scene = None
-    scene_data_folder_path = configuration.scene_data_folder_path
+    @staticmethod
+    def get_path(scene_name):
+        return configuration.scene_data_folder_path + scene_name + '.json'
 
     @staticmethod
     def load_scene(scene_name):
-        path = SceneManager.scene_data_folder_path + scene_name + '.json'
+        path = SceneManager.get_path(scene_name)
         scene_data = jsonmanager.get_data(path)
 
-        SceneManager.scene = Scene(scene_name, scene_data['Entities'])
+        return Scene(scene_name, scene_data['Entities'])
 
     @staticmethod
     def check_if_scene_exists(scene_name):
-        path = SceneManager.scene_data_folder_path + scene_name + '.json'
-        return jsonmanager.check_for_file(path)
+        path = SceneManager.get_path(scene_name)
 
+        return jsonmanager.check_for_file(path)

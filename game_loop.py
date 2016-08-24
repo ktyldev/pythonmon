@@ -47,11 +47,13 @@ class DefaultGameLoop(Loop):
             self.scene.update(event_input, cont_input)
 
     def run(self):
+        if self.scene is None:
+            logger.log('scene not set!')
+            return
         self.scene.start()
         self.gui.set_focus('player')
         self.tick_method = self.tick
         super().run()
 
     def set_scene(self, scene_name):
-        scene.SceneManager.load_scene(scene_name)
-        self.scene = scene.SceneManager.scene
+        self.scene = scene.SceneManager.load_scene(scene_name)
