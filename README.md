@@ -12,8 +12,8 @@ Various pieces of configuration can be found in `_config.cfg`. It is not recomme
 
 ## TODO
 
-* **remove `None` input values, replace with `None` input type to reduce complexity on the component level**
-* **rename modules to make more sense (suggestions very welcome)**
+* **implement some sort of testing framework**
+* rename modules to make more sense (suggestions very welcome)
 * implement instruction set for building scenes
 * remove binaries from repo
 * optimise map data file layout (it's horrendously ineffecient)
