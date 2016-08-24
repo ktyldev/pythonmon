@@ -54,7 +54,6 @@ class Gui:
                     self.screen.blit(graphics_component.surface, draw_with_offset)
 
         self.ticks += 1
-        # update the display
         pygame.display.flip()
 
     def get_camera_offset(self):

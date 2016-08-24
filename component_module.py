@@ -1,9 +1,9 @@
 import jsonmanager
 import scene
 import configuration
+import logger
 
 from helpers import Helpers
-from logger import Logger
 from input import *
 
 
@@ -178,7 +178,7 @@ class MovementComponent(Component):
             return
 
         if not self.tile_map_component.in_bounds(next_tile_pos):
-            Logger.log('can\'t go that way!')
+            logger.log('can\'t go that way!')
             return
 
         self.target_pos = next_tile_pos

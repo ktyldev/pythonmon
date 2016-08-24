@@ -7,5 +7,6 @@ def get_data(json_file):
         data = json.load(data_file)
         return data
 
+
 def check_for_file(path):
     return os.path.isfile(path)

@@ -1,10 +1,6 @@
-import configuration
+enabled = False
 
 
-class Logger:
-    enabled = configuration.log_all
-    
-    @staticmethod
-    def log(text):
-        if Logger.enabled:
-            print(text)
+def log(text):
+    if enabled:
+        print(text)

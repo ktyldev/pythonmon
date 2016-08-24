@@ -19,8 +19,5 @@ event_loop_multiplier = int(config.get('Engine', 'event_loop_multiplier'))
 tile_size = int(config.get('Engine', 'tile_size'))
 clock_tick = event_loop_multiplier * fps
 
-# LOGGING
-log_all = int(config.get('Logging', 'all')) == 1
-
 # FILE PATHS
 scene_data_folder_path = config.get('File Paths', 'scene_data_folder_path')

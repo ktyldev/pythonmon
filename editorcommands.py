@@ -1,9 +1,9 @@
 import sys
 import game_loop
 import jsonmanager
+import logger
 
 from consolemodule import Console
-from logger import Logger
 
 
 class ConsoleMenu:
@@ -19,7 +19,7 @@ class ConsoleMenu:
             try:
                 getattr(sys.modules[__name__], self.action)()
             except AttributeError:
-                Logger.log(self.action + ' is not recognised.')
+                logger.log(self.action + ' is not recognised.')
 
     @staticmethod
     def from_data(name):

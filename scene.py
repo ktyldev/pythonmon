@@ -1,9 +1,10 @@
 import jsonmanager
-from entity import Entity
 import component_module
 import logger
 import configuration
 import input
+
+from entity import Entity
 
 
 class Scene:
@@ -28,7 +29,7 @@ class Scene:
 
                     entity.add_component(component)
                 except AttributeError:
-                    logger.Logger.log(component_data["Type"] + " not recognised :/")
+                    logger.log(component_data["Type"] + " not recognised :/")
 
             self.entities.append(entity)
 

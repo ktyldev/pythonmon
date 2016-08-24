@@ -1,10 +1,10 @@
 import pygame
 import configuration
 import scene
+import logger
 
 from gui_module import Gui
 from input import InputManager
-from logger import Logger
 
 
 class Loop:
@@ -19,7 +19,7 @@ class Loop:
 
     def run(self):
         if self.tick_method is None:
-            Logger.log('no assigned tick method')
+            logger.log('no assigned tick method')
             return
         self.setup()
         self.total_frames = 0

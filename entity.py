@@ -1,4 +1,5 @@
-from logger import Logger
+import logger
+
 
 class Entity:
     """
@@ -13,7 +14,7 @@ class Entity:
         self.components = []
         self.direction = None
 
-        Logger.log(self.name + ' initialised at ' + str(self.x) + ", " + str(self.y))
+        logger.log(self.name + ' initialised at ' + str(self.x) + ", " + str(self.y))
 
     def get_component(self, component_type):
         """

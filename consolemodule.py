@@ -1,7 +1,8 @@
 import configuration
-import gui_module
-from logger import Logger
+import logger
 import scene
+
+from gui_module import Gui
 
 
 class Console:
@@ -25,7 +26,7 @@ class Console:
             command_to_run = getattr(self, verb)
             command_to_run(args)
         except AttributeError:
-            Logger.log(verb + ' not recognised or arguments invalid.')
+            logger.log(verb + ' not recognised or arguments invalid.')
 
     def exit(self, args):
         self.running = False
@@ -38,13 +39,12 @@ class Console:
         if scene_exists:
             scene.SceneManager.load_scene(args[0])
         else:
-            Logger.log('New scene: ' + scene_name)
+            logger.log('New scene: ' + scene_name)
 
         scene.SceneManager.scene.start()
-        Logger.log('Scene loaded: ' + scene_name)
-
+        logger.log('Scene loaded: ' + scene_name)
 
         screen_size = configuration.editor_width, configuration.editor_height
 
-        gui = gui.Gui(screen_size, configuration.layer_limit)
+        gui = Gui(screen_size, configuration.layer_limit)
         gui.draw()
