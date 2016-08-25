@@ -2,9 +2,9 @@ import pygame
 import configuration
 import scene
 import logger
+import input
 
 from gui_module import Gui
-from input import InputManager
 
 
 class Loop:
@@ -34,15 +34,21 @@ class DefaultGameLoop(Loop):
         super().__init__()
         screen_size = configuration.screen_width, configuration.screen_height
         self.gui = Gui(screen_size, configuration.layer_limit)
-        self.input_manager = InputManager()
+
+        ev_mappings = [[122, 'a'], [120, 'b'], [99, 'start'], [118, 'select']]
+        co_mappings = [[276, 'left'], [273, 'up'], [275, 'right'], [274, 'down']]
+
+        input.add_handler('event', ev_mappings)
+        input.add_handler('continuous', co_mappings)
+
         self.scene = None
 
     def tick(self):
         pygame.event.pump()
-        event_input = self.input_manager.dict_tick('event')
+        event_input = input.tick('event')
         if self.total_frames % configuration.event_loop_multiplier == 0:
             self.gui.draw()
-            cont_input = self.input_manager.dict_tick('continuous')
+            cont_input = input.tick('continuous')
 
             self.scene.update(event_input, cont_input)
 

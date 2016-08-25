@@ -35,8 +35,8 @@ class Scene:
             self.entities.append(entity)
 
     def start(self):
-        self.event_input = input.KeyboardInputType.NONE
-        self.cont_input = input.KeyboardInputType.NONE
+        self.event_input = 'none'
+        self.cont_input = 'none'
 
         for entity in self.entities:
             entity.start()
