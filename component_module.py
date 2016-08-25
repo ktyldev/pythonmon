@@ -68,7 +68,12 @@ class Component:
         """
         return
 
-    def load_data(self, data):
+    def load_data(self, data_array):
+        """
+        assign data to a class instance before starting scene
+        :param data_array: an array of data to initialise the component with
+        :return:
+        """
         return
 
 
@@ -84,7 +89,6 @@ class GraphicsComponent(Component):
         self.offset = 0, 0
         self.layer = 0
         self.image = None
-        self.is_focus = False
 
         self.draw_x = 0
         self.draw_y = 0
@@ -103,10 +107,10 @@ class GraphicsComponent(Component):
         self.draw_x = self.entity.x + self.offset[0]
         self.draw_y = self.entity.y + self.offset[1]
 
-    def load_data(self, data):
-        self.image = data[0]
-        self.layer = data[1]
-        self.offset = data[2]
+    def load_data(self, data_array):
+        self.image = data_array[0]
+        self.layer = data_array[1]
+        self.offset = data_array[2]
 
 
 class MovementComponent(Component):
@@ -147,8 +151,8 @@ class MovementComponent(Component):
         if self.target_pos:
             self.move()
 
-    def load_data(self, data):
-        self.movement_speed = data[0]
+    def load_data(self, data_array):
+        self.movement_speed = data_array[0]
 
     def move_command(self, direction):
         """
@@ -220,7 +224,7 @@ class InputComponent(Component):
     def update(self):
         super().update()
 
-    def load_data(self, data):
+    def load_data(self, data_array):
         return
 
 
@@ -274,8 +278,8 @@ class TileMapComponent(Component):
             tile = TileMapComponent.Tile(tile_datum['Id'], tile_datum['Type'])
             self.tile_list.append(tile)
 
-    def load_data(self, data):
-        self.map_name = data[0]
+    def load_data(self, data_array):
+        self.map_name = data_array[0]
 
     def id_to_coordinate(self, tile_id):
         y = tile_id // self.map_width

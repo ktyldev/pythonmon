@@ -31,7 +31,7 @@ class Gui:
 
         for graphics_component in GraphicsComponent.List:
             if graphics_component.entity.name == entity_name:
-                graphics_component.is_focus = True
+                self.focus = graphics_component
 
     def draw(self):
         """
@@ -42,12 +42,11 @@ class Gui:
         # clear the screen
         self.screen.fill(constants.BLACK)
 
-        camera_offset = self.get_camera_offset()
-
         for layer in range(0, self.layer_limit):
             for graphics_component in GraphicsComponent.List:
                 if graphics_component.layer == layer and graphics_component.enabled:
 
+                    camera_offset = self.get_camera_offset()
                     draw_rect = graphics_component.draw_x, graphics_component.draw_y
                     draw_with_offset = Helpers.add_vectors(camera_offset, draw_rect)
 
@@ -57,12 +56,8 @@ class Gui:
         pygame.display.flip()
 
     def get_camera_offset(self):
-        focus = None
-        for graphics_component in GraphicsComponent.List:
-            if graphics_component.is_focus:
-                focus = graphics_component
         draw_pos = self.screen_centre
-        if focus:
-            draw_pos = focus.draw_x, focus.draw_y
+        if self.focus:
+            draw_pos = self.focus.draw_x, self.focus.draw_y
         camera_offset = Helpers.subtract_vector(self.screen_centre, draw_pos)
         return camera_offset
