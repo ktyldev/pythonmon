@@ -21,3 +21,4 @@ clock_tick = event_loop_multiplier * fps
 
 # FILE PATHS
 scene_data_folder_path = config.get('File Paths', 'scene_data_folder_path')
+input_config_path = config.get('File Paths', 'input_config_path')

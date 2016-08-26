@@ -1,0 +1,46 @@
+{
+  "EventMappings": [
+    {
+      "Name": "event",
+      "Mappings": [
+        {
+          "KeyCode": 122,
+          "Input": "a"
+        },
+        {
+          "KeyCode": 120,
+          "Input": "b"
+        },
+        {
+          "KeyCode": 99,
+          "Input": "start"
+        },
+        {
+          "KeyCode": 118,
+          "Input": "select"
+        }
+      ]
+    },
+    {
+      "Name": "continuous",
+      "Mappings": [
+        {
+          "KeyCode": 276,
+          "Input": "left"
+        },
+        {
+          "KeyCode": 273,
+          "Input": "up"
+        },
+        {
+          "KeyCode": 275,
+          "Input": "right"
+        },
+        {
+          "KeyCode": 274,
+          "Input": "down"
+        }
+      ]
+    }
+  ]
+}

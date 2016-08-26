@@ -1,5 +1,6 @@
 import pygame
 import configuration
+import jsonmanager
 import scene
 import logger
 import input
@@ -35,11 +36,15 @@ class DefaultGameLoop(Loop):
         screen_size = configuration.screen_width, configuration.screen_height
         self.gui = Gui(screen_size, configuration.layer_limit)
 
-        ev_mappings = [[122, 'a'], [120, 'b'], [99, 'start'], [118, 'select']]
-        co_mappings = [[276, 'left'], [273, 'up'], [275, 'right'], [274, 'down']]
+        input_config_name = 'overworld-input'
+        path = str(input.path) + input_config_name + '.json'
+        input_config = jsonmanager.get_data(path)
 
-        input.add_handler('event', ev_mappings)
-        input.add_handler('continuous', co_mappings)
+        mapping_objects = input_config['EventMappings']
+        for mapping_object in mapping_objects:
+            name = mapping_object['Name']
+            mappings = mapping_object['Mappings']
+            input.add_handler(name, mappings)
 
         self.scene = None
 
