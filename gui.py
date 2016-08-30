@@ -1,5 +1,6 @@
 import pygame
 import constants
+import configuration
 
 from component_module import GraphicsComponent
 from helpers import Helpers
@@ -10,11 +11,13 @@ class Gui:
     manages the display of graphics onscreen
     """
 
-    def __init__(self, screen_size, layer_limit):
-        screen_width = screen_size[0]
-        screen_height = screen_size[1]
+    def __init__(self):
 
-        self.layer_limit = layer_limit
+        screen_width = configuration.screen_width
+        screen_height = configuration.screen_height
+        screen_size = screen_width, screen_height
+
+        self.layer_limit = configuration.layer_limit
         self.screen_centre = screen_width / 2, screen_height / 2
         self.ticks = 0
 

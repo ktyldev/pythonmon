@@ -4,8 +4,7 @@ import jsonmanager
 import scene
 import logger
 import input
-
-from gui_module import Gui
+import gui
 
 
 class Loop:
@@ -33,8 +32,7 @@ class Loop:
 class DefaultGameLoop(Loop):
     def __init__(self):
         super().__init__()
-        screen_size = configuration.screen_width, configuration.screen_height
-        self.gui = Gui(screen_size, configuration.layer_limit)
+        self.gui = gui.Gui()
 
         input_config_name = 'overworld-input'
         path = str(input.path) + input_config_name + '.json'
