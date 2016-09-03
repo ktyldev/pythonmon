@@ -1,23 +1,26 @@
 import pygame
 import sys
 
-import configuration
 
 handlers = {}
-path = configuration.input_config_path
+
 
 def tick(name):
     return handlers[name].tick()
 
 
-def add_handler(name, mappings):
+def add_keyboard_handler(name, mappings):
     handler = KeyboardInputHandler(mappings)
     handlers[name] = handler
 
 
-class KeyboardInputHandler:
+def add_mouse_handler(name, mappings):
+    handler = MouseInputHandler(mappings)
+    handlers[name] = handler
+
+
+class InputHandler:
     def __init__(self, mappings):
-        self.__path = configuration.input_config_path
         self.inputs = []
         self.outputs = []
         for mapping in mappings:
@@ -30,6 +33,14 @@ class KeyboardInputHandler:
                 pygame.quit()
                 sys.exit()
 
+
+class KeyboardInputHandler(InputHandler):
+    def __init__(self, mappings):
+        super().__init__(mappings)
+
+    def tick(self):
+        super().tick()
+
         keys = pygame.key.get_pressed()
 
         for i in range(0, len(self.inputs)):
@@ -38,6 +49,20 @@ class KeyboardInputHandler:
 
         return 'none'
 
-    @property
-    def path(self):
-        return self.__path
+
+class MouseInputHandler(InputHandler):
+    def __init__(self, mappings):
+        super().__init__(mappings)
+
+
+    def tick(self):
+        super().tick()
+
+        buttons = pygame.mouse.get_pressed()
+
+        # Currently only handling left and right clicks
+        for i in range(0, len(self.inputs)):
+            if buttons[self.inputs[i]]:
+                return self.outputs[i]
+
+        return 'none'

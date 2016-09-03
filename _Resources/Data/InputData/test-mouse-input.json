@@ -1,0 +1,22 @@
+{
+  "Type":"mouse",
+  "EventMappings":[
+    {
+      "Name":"mouse",
+      "Mappings":[
+        {
+          "KeyCode": 0,
+          "Input":"left"
+        },
+        {
+          "KeyCode": 1,
+          "Input":"middle"
+        },
+        {
+          "KeyCode":2,
+          "Input":"right"
+        }
+      ]
+    }
+  ]
+}

@@ -10,6 +10,10 @@
       "Action":"run_game"
     },
     {
+      "Text":"Run Editor",
+      "Action":"run_editor"
+    },
+    {
       "Text":"Console",
       "Action":"start_console"
     }
