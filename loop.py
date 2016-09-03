@@ -61,7 +61,7 @@ class TestLoop(Loop):
         pygame.event.pump()
         self.gui.draw()
         mouse_input = input.tick('mouse')
-        
+
 
     def run(self):
         if self.scene is None:

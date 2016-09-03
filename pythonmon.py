@@ -1,6 +1,6 @@
 import argparse
 
-from editorcommands import *
+from menu import *
 
 
 parser = argparse.ArgumentParser(description='Pythonmon game engine')
