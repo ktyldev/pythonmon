@@ -54,7 +54,6 @@ class MouseInputHandler(InputHandler):
     def __init__(self, mappings):
         super().__init__(mappings)
 
-
     def tick(self):
         super().tick()
 
@@ -63,6 +62,6 @@ class MouseInputHandler(InputHandler):
         # Currently only handling left and right clicks
         for i in range(0, len(self.inputs)):
             if buttons[self.inputs[i]]:
-                return self.outputs[i]
+                return self.outputs[i], pygame.mouse.get_pos()
 
-        return 'none'
+        return 'none', 'none'

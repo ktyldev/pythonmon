@@ -63,12 +63,12 @@ def print_help():
 
 
 def run_editor():
-    loop = loop.TestLoop()
-    loop.set_scene('pallet-town')
-    loop.run()
+    editor_loop = loop.TestLoop()
+    editor_loop.set_scene('pallet-town')
+    editor_loop.run()
 
 
 def run_game():
-    loop = loop.DefaultGameLoop()
-    loop.set_scene('pallet-town')
-    loop.run()
+    game_loop = loop.DefaultGameLoop()
+    game_loop.set_scene('pallet-town')
+    game_loop.run()

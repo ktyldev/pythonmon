@@ -1,6 +1,6 @@
 import argparse
-
-from menu import *
+import logger
+import menu
 
 
 parser = argparse.ArgumentParser(description='Pythonmon game engine')
@@ -12,7 +12,7 @@ logger.enabled = args.l
 
 logger.log('Program started')
 
-start_menu = ConsoleMenu.from_data('start-menu')
+start_menu = menu.make_console_menu('start-menu')
 
 start_menu.run()
 
