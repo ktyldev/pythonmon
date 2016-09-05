@@ -2,10 +2,6 @@
   "Title":"Start Menu",
   "Items":[
     {
-      "Text":"Help",
-      "Action":"print_help"
-    },
-    {
       "Text":"Run Game",
       "Action":"run_game"
     },

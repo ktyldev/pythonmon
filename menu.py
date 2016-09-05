@@ -58,17 +58,14 @@ class ConsoleMenu:
         self.get_menu_item(int(result)).invoke()
 
 
-def print_help():
-    print('help')
+def run_loop(game_loop):
+    game_loop.set_scene('pallet-town')
+    game_loop.run()
 
 
 def run_editor():
-    editor_loop = loop.TestLoop()
-    editor_loop.set_scene('pallet-town')
-    editor_loop.run()
+    run_loop(loop.TestLoop())
 
 
 def run_game():
-    game_loop = loop.DefaultGameLoop()
-    game_loop.set_scene('pallet-town')
-    game_loop.run()
+    run_loop(loop.DefaultGameLoop())
