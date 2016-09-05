@@ -16,10 +16,11 @@ def add_input_handlers(config_name):
         name = mapping_object['Name']
         mappings = mapping_object['Mappings']
 
-        type = input_config['Type']
-        if type == 'keyboard':
+        # TODO: make this less gross
+        input_type = input_config['Type']
+        if input_type == 'keyboard':
             input.add_keyboard_handler(name, mappings)
-        elif type == 'mouse':
+        elif input_type == 'mouse':
             input.add_mouse_handler(name, mappings)
 
 
@@ -28,6 +29,7 @@ class Loop:
         self.clock = None
         self.total_frames = 0
         self.tick_method = None
+        self.scene = None
 
     def setup(self):
         pygame.init()
@@ -55,14 +57,20 @@ class TestLoop(Loop):
 
         add_input_handlers('test-mouse-input')
 
-        self.scene = None
+        self.last_tick_mouse = 'none'
 
     def tick(self):
         pygame.event.pump()
         self.gui.draw()
         mouse_input = input.tick('mouse')
-        if mouse_input[0] != 'none':
-            logger.log(mouse_input[0] + ' ' + str(mouse_input[1]))
+        if mouse_input[0] != self.last_tick_mouse:
+            if mouse_input[0] == 'none':
+                logger.log('mouse button up')
+            else:
+                logger.log('mouse button down')
+                logger.log(mouse_input[0] + ' ' + str(mouse_input[1]))
+
+        self.last_tick_mouse = mouse_input[0]
 
     def run(self):
         if self.scene is None:
@@ -87,8 +95,6 @@ class DefaultGameLoop(Loop):
         self.gui = gui.Gui()
 
         add_input_handlers('overworld-input')
-
-        self.scene = None
 
     def tick(self):
         pygame.event.pump()
