@@ -1,4 +1,5 @@
 import controller.component
+
 from controller.entity import Entity
 from util import jsonmanager, logger, configuration
 
