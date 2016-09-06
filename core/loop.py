@@ -1,10 +1,7 @@
 import pygame
-import configuration
-import jsonmanager
-import scene
-import logger
-import input
-import gui
+
+from core import gui, input, configuration, scene
+from util import jsonmanager, logger
 
 
 def add_input_handlers(config_name):

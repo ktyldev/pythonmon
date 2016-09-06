@@ -1,9 +1,8 @@
 import pygame
-import constants
-import configuration
 
-from component_module import GraphicsComponent
-from helpers import Helpers
+from controller.component import GraphicsComponent
+from core import configuration
+from util.helpers import Helpers
 
 
 class Gui:
@@ -24,6 +23,7 @@ class Gui:
         self.screen = pygame.display.set_mode(screen_size)
 
         self.focus = None
+        self.editor_mode = False
 
     def set_focus(self, entity_name):
         """
@@ -43,7 +43,7 @@ class Gui:
         """
 
         # clear the screen
-        self.screen.fill(constants.BLACK)
+        self.screen.fill((0,0,0))
 
         for layer in range(0, self.layer_limit):
             for graphics_component in GraphicsComponent.List:

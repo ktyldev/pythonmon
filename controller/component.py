@@ -1,9 +1,7 @@
-import jsonmanager
-import configuration
-import logger
-
-from helpers import Helpers
-from input import *
+from core import configuration
+from core.input import *
+from util import jsonmanager, logger
+from util.helpers import Helpers
 
 
 # COMPONENT USAGE
@@ -319,3 +317,9 @@ class TileMapComponent(Component):
 
     def tile_to_pixel(self, vector):
         return vector[0] * self.tile_size, vector[1] * self.tile_size
+
+
+class TileComponent(Component):
+    def __init__(self, tile):
+        super().__init__()
+        self.tile = tile

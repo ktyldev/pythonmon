@@ -1,10 +1,7 @@
-import jsonmanager
-import component_module
-import logger
-import configuration
-import input
-
-from entity import Entity
+import controller.component
+from controller.entity import Entity
+from core import configuration
+from util import jsonmanager, logger
 
 
 class Scene:
@@ -20,7 +17,7 @@ class Scene:
             entity = Entity(entity_data["Name"], position)
             for component_data in entity_data["Components"]:
                 try:
-                    component_constructor = getattr(component_module, component_data["Type"])
+                    component_constructor = getattr(controller.component, component_data["Type"])
                     component = component_constructor()
                     component.scene = self
 

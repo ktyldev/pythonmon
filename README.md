@@ -10,13 +10,28 @@ Pythonmon is an attempt at replicating the game engine of the [3rd generation Po
 
 Various pieces of configuration can be found in `_config.cfg`. It is not recommended to edit this unless using the engine for a different game.
 
-## TODO
+## To Do
 
+* **update tile engine**
+* **edit tiles in editor mode**
 * **implement some sort of testing framework**
 * rename modules to make more sense (suggestions very welcome)
 * implement instruction set for building scenes
 * remove binaries from repo
-* optimise map data file layout (it's horrendously ineffecient)
+* optimise map data file layout (it's horrendously inefficient)
+
+## In Progress
+
+* game loop
+* tile engine
+* player movement
+
+## Completed
+
+* overworld graphics engine
+* scene > entity > component object composition
+* input
+* collision
 
 ## Contributors
 

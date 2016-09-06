@@ -1,7 +1,7 @@
 import sys
-import loop
-import jsonmanager
-import logger
+
+from core import loop
+from util import jsonmanager, logger
 
 
 def make_console_menu(name):

@@ -1,7 +1,7 @@
 import argparse
-import logger
-import menu
 
+from core import menu
+from util import logger
 
 parser = argparse.ArgumentParser(description='Pythonmon game engine')
 parser.add_argument('-l', action='store_true', help='enable logging')
