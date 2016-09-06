@@ -1,13 +1,13 @@
 import controller.component
 from controller.entity import Entity
-from core import configuration
-from util import jsonmanager, logger
+from util import jsonmanager, logger, configuration
 
 
 class Scene:
     def __init__(self, name, entities_data):
         self.name = name
         self.entities = []
+        self.started_entities = []
         self.event_input = None
         self.cont_input = None
 
@@ -35,8 +35,24 @@ class Scene:
         self.event_input = 'none'
         self.cont_input = 'none'
 
-        for entity in self.entities:
-            entity.start()
+        while not self.ready_to_start():
+            logger.log('preparing to start:')
+            entities_to_start = []
+            for ent in self.entities:
+                if not ent.is_started():
+                    entities_to_start.append(ent)
+                    logger.log('  ' + ent.name)
+
+            logger.log('starting:')
+            for entity in entities_to_start:
+                logger.log('  ' + entity.name)
+                try:
+                    entity.start()
+                except Exception as e:
+                    logger.log('could not start entity. Logging error:')
+                    logger.log(e)
+
+        logger.log('started all entities :)')
 
     def update(self, event_input, cont_input):
         self.event_input = event_input
@@ -49,6 +65,15 @@ class Scene:
             if entity.name == entity_name:
                 return entity
         return None
+
+    def add_entity(self, entity):
+        self.entities.append(entity)
+
+    def ready_to_start(self):
+        for entity in self.entities:
+            if not entity.is_started():
+                return False
+        return True
 
 
 class SceneManager:

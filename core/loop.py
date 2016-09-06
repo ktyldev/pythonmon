@@ -1,7 +1,7 @@
 import pygame
 
-from core import gui, input, configuration, scene
-from util import jsonmanager, logger
+from core import gui, input, scene
+from util import jsonmanager, logger, configuration
 
 
 def add_input_handlers(config_name):
@@ -38,6 +38,7 @@ class Loop:
             return
         self.setup()
         self.total_frames = 0
+        logger.log('starting main loop execution')
         while True:
             self.tick_method()
             self.clock.tick(configuration.clock_tick)

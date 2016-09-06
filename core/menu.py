@@ -27,8 +27,10 @@ class ConsoleMenuItem:
     def invoke(self):
         try:
             getattr(sys.modules[__name__], self.action)()
-        except AttributeError:
-            logger.log(self.action + ' is not recognised.')
+        except AttributeError as error:
+            logger.log('Something went wrong :(')
+            logger.log(error.args)
+            raise error
 
 
 class ConsoleMenu:

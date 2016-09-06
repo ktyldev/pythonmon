@@ -36,7 +36,7 @@ class Entity:
         :return:
         """
         for component in self.components:
-            if component.enabled:
+            if component.enabled and not component.started:
                 component.start()
 
     def update(self):
@@ -47,3 +47,9 @@ class Entity:
         for component in self.components:
             if component.enabled:
                 component.update()
+
+    def is_started(self):
+        for component in self.components:
+            if not component.started:
+                return False
+        return True

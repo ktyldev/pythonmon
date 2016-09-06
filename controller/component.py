@@ -1,7 +1,7 @@
-from core import configuration
 from core.input import *
-from util import jsonmanager, logger
-from util.helpers import Helpers
+from controller import entity as ent
+from util import logger, configuration, helpers
+import model.tile
 
 
 # COMPONENT USAGE
@@ -50,6 +50,7 @@ class Component:
         self.enabled = True
         self.tag = ''
         self.entity = None
+        self.started = False
         Component.List.append(self)
 
     def start(self):
@@ -57,6 +58,7 @@ class Component:
         called at the start of the scene
         :return:
         """
+        self.started = True
         return
 
     def update(self):
@@ -169,12 +171,14 @@ class MovementComponent(Component):
         """
         self.player.direction = direction
 
-        direction_vector = Helpers.direction_to_direction_vector(direction)
+        direction_vector = helpers.direction_to_direction_vector(direction)
 
-        next_tile_pos = Helpers.add_vectors(self.position, direction_vector)
+        next_tile_pos = helpers.add_vectors(self.position, direction_vector)
         next_tile_pos = int(next_tile_pos[0]), int(next_tile_pos[1])
 
-        if self.tile_map_component.get_tile_property(next_tile_pos) == 'collision':
+        next_tile = self.tile_map_component.get_tile(next_tile_pos)
+
+        if next_tile.tile_type == 'collision':
             return
 
         if not self.tile_map_component.in_bounds(next_tile_pos):
@@ -193,7 +197,7 @@ class MovementComponent(Component):
 
         # You have reached your destination
 
-        target_reached = Helpers.vector_equality(own_pixel_pos, target_pixel_pos)
+        target_reached = helpers.vector_equality(own_pixel_pos, target_pixel_pos)
 
         if target_reached:
             self.position = self.target_pos
@@ -203,7 +207,7 @@ class MovementComponent(Component):
             if direction:
                 self.set_target(direction)
         else:
-            direction_vector = Helpers.direction_to_direction_vector(self.player.direction)
+            direction_vector = helpers.direction_to_direction_vector(self.player.direction)
 
             self.entity.x += direction_vector[0] * self.movement_speed
             self.entity.y += direction_vector[1] * self.movement_speed
@@ -242,75 +246,39 @@ class PlayerInputComponent(InputComponent):
 
 
 class TileMapComponent(Component):
-    class Tile:
-        """
-        stores tile data for use by a TileMapComponent object
-        """
-        def __init__(self, tile_id, tile_type):
-            self.tile_id = tile_id
-            self.tile_type = tile_type
-
     def __init__(self):
         super().__init__()
         self.tag = 'tile map'
-
-        self.map_data_folder_path = '_Resources/Data/MapData/'
         self.map_name = ''
+        self.map = None
         self.tile_size = configuration.tile_size
 
-        self.map_width = 0
-        self.map_height = 0
-        self.tile_list = []
-
     def start(self):
+        self.map = model.tile.Map.from_data(self.map_name)
+        for tile in self.map.tile_list:
+            # grid ref on tile map
+            tile_coord = self.id_to_coordinate(tile.tile_id)
+            # pixel position
+            tile_position = self.tile_to_pixel(tile_coord)
+            entity = ent.Entity('tile ' + str(tile.tile_id), tile_position)
+            entity.add_component(TileComponent(tile))
+            self.scene.add_entity(entity)
         super().start()
-
-        path = self.map_data_folder_path + self.map_name + '-map-data.json'
-        tile_map_data = jsonmanager.get_data(path)
-
-        self.map_width = tile_map_data['Width']
-        self.map_height = tile_map_data['Height']
-
-        tiles_data = tile_map_data['Tiles']
-        for tile_datum in tiles_data:
-            tile = TileMapComponent.Tile(tile_datum['Id'], tile_datum['Type'])
-            self.tile_list.append(tile)
 
     def load_data(self, data_array):
         self.map_name = data_array[0]
 
     def id_to_coordinate(self, tile_id):
-        y = tile_id // self.map_width
-        x = tile_id % self.map_width
-
-        return x, y
+        return self.map.id_to_coord(tile_id)
 
     def coordinate_to_id(self, coordinate):
-        return coordinate[1] * self.map_width + coordinate[0]
+        return self.map.coord_to_id(coordinate)
 
     def get_tile(self, position):
-        """
-        returns tile at position.
-        :param position: where to look for a tile
-        :return:
-        """
-        for tile in self.tile_list:
-            if Helpers.vector_equality(self.id_to_coordinate(tile.tile_id), position):
-                return tile
-        return None
-
-    def get_tile_property(self, tile_position):
-        tile = self.get_tile(tile_position)
-        return tile.tile_type
+        return self.map.get_tile(position)
 
     def in_bounds(self, tile_position):
-        x = tile_position[0]
-        y = tile_position[1]
-
-        valid_x_range = range(0, self.map_width)
-        valid_y_range = range(0, self.map_height)
-
-        return x in valid_x_range and y in valid_y_range
+        return self.map.in_bounds(tile_position)
 
     def pixel_to_tile(self, vector):
         return vector[0] / self.tile_size, vector[1] / self.tile_size

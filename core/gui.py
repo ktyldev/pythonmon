@@ -1,8 +1,7 @@
 import pygame
 
 from controller.component import GraphicsComponent
-from core import configuration
-from util.helpers import Helpers
+from util import configuration, helpers
 
 
 class Gui:
@@ -51,7 +50,7 @@ class Gui:
 
                     camera_offset = self.get_camera_offset()
                     draw_rect = graphics_component.draw_x, graphics_component.draw_y
-                    draw_with_offset = Helpers.add_vectors(camera_offset, draw_rect)
+                    draw_with_offset = helpers.add_vectors(camera_offset, draw_rect)
 
                     self.screen.blit(graphics_component.surface, draw_with_offset)
 
@@ -62,5 +61,5 @@ class Gui:
         draw_pos = self.screen_centre
         if self.focus:
             draw_pos = self.focus.draw_x, self.focus.draw_y
-        camera_offset = Helpers.subtract_vector(self.screen_centre, draw_pos)
+        camera_offset = helpers.subtract_vector(self.screen_centre, draw_pos)
         return camera_offset
