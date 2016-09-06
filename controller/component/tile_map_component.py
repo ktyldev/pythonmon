@@ -1,6 +1,8 @@
-import model
+import model.tile as tile_model
 
-from controller.component import Component, TileComponent
+from controller.component import Component
+from controller.component.tile_component import TileComponent
+
 from controller.entity import Entity
 from util import configuration
 
@@ -14,7 +16,7 @@ class TileMapComponent(Component):
         self.tile_size = configuration.tile_size
 
     def start(self):
-        self.map = model.tile.Map.from_data(self.map_name)
+        self.map = tile_model.Map.from_data(self.map_name)
         for tile in self.map.tile_list:
             # grid ref on tile map
             tile_coord = self.id_to_coordinate(tile.tile_id)
