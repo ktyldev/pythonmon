@@ -12,7 +12,6 @@ Various pieces of configuration can be found in `_config.cfg`. It is not recomme
 
 ## To Do
 
-* **update tile engine**
 * **edit tiles in editor mode**
 * **implement some sort of testing framework**
 * rename modules to make more sense (suggestions very welcome)
@@ -22,12 +21,12 @@ Various pieces of configuration can be found in `_config.cfg`. It is not recomme
 
 ## In Progress
 
-* game loop
-* tile engine
-* player movement
+* game/editor loop
+* player movement (implement running)
 
 ## Completed
 
+* tile engine
 * overworld graphics engine
 * scene > entity > component object composition
 * input

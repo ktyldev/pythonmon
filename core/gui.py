@@ -42,7 +42,7 @@ class Gui:
         """
 
         # clear the screen
-        self.screen.fill((0,0,0))
+        self.screen.fill((0, 0, 0))
 
         for layer in range(0, self.layer_limit):
             for graphics_component in GraphicsComponent.List:

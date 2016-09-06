@@ -3,34 +3,36 @@ from controller import entity as ent
 from util import logger, configuration, helpers
 import model.tile
 
+"""
+COMPONENT USAGE
 
-# COMPONENT USAGE
-#
-#   This is where all game logic is defined. Components should only update themselves and the entity they are attached
-#   to. On rare occasions it may be necessary to access other components from inside a component's update method. This
-#   should be achieved via ```self.scene.find_entity(%entity_name%).get_component(%component_name%)```.
-#
-#   Components have parameterless constructors, two overridable parameterless methods and one overridable method with a
-#   single parameter.
-#
-#   Component()
-#
-#   Every component should have a parameterless constructor defined.
-#
-#   component.update()
-#
-#   This method will be called once per tick. It is used to update the state of the Component and the entity to which
-#   the component is attached.
-#
-#   component.start()
-#
-#   This method is called once at the start of the scene. It is used to prepare the state of the component using data
-#   that is only available at runtime.
-#
-#   component.load_data(data)
-#
-#   This method is called before the start of the scene. It is used to load data from the scene JSON file. The data is
-#   an array which can be used with index arguments to assign data to class members.
+This is where all game logic is defined. Components should only update themselves and the entity they are attached
+to. On rare occasions it may be necessary to access other components from inside a component's update method. This
+should be achieved via ```self.scene.find_entity(%entity_name%).get_component(%component_name%)```.
+
+Components have parameter-less constructors, two override-able parameter-less methods and one override-able
+method with a single parameter.
+
+Component()
+
+Every component should have a parameter-less constructor defined.
+
+component.update()
+
+This method will be called once per tick. It is used to update the state of the Component and the entity to which
+the component is attached.
+
+component.start()
+
+This method is called once at the start of the scene. It is used to prepare the state of the component using data
+that is only available at runtime.
+
+component.load_data(data)
+
+This method is called before the start of the scene. It is used to load data from the scene JSON file. The data is
+an array which can be used with index arguments to assign data to class members.
+"""
+
 
 class Component:
     """
@@ -98,6 +100,7 @@ class GraphicsComponent(Component):
 
     def start(self):
         super().start()
+        # noinspection PyUnresolvedReferences
         self.surface = pygame.image.load(self.image)
         self.draw_x = self.entity.x + self.offset[0]
         self.draw_y = self.entity.y + self.offset[1]

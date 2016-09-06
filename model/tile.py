@@ -1,4 +1,4 @@
-from util import jsonmanager, configuration, helpers
+from util import jsonmanager, helpers
 
 
 class Map:
