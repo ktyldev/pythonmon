@@ -1,9 +1,9 @@
 def add_vectors(a, b):
-    return a[0] + b[0], a[1] + b[1]
+    return int(a[0] + b[0]), int(a[1] + b[1])
 
 
 def subtract_vector(a, b):
-    return a[0] - b[0], a[1] - b[1]
+    return int(a[0] - b[0]), int(a[1] - b[1])
 
 
 def vector_equality(a, b):
