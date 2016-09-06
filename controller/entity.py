@@ -1,5 +1,4 @@
-from util import logger
-
+from util import configuration
 
 class Entity:
     """
@@ -8,8 +7,8 @@ class Entity:
 
     def __init__(self, name, position=(0, 0)):
         self.name = name
-        self.x = position[0]
-        self.y = position[1]
+        self.x = position[0] * configuration.tile_size
+        self.y = position[1] * configuration.tile_size
         self.child_entities = []
         self.components = []
         self.direction = None
@@ -33,9 +32,10 @@ class Entity:
         called at start of scene
         :return:
         """
-        for component in self.components:
-            if component.enabled and not component.started:
-                component.start()
+        if len(self.components) > 0:
+            for component in self.components:
+                if component.enabled and not component.started:
+                    component.start()
 
     def update(self):
         """

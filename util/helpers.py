@@ -6,6 +6,14 @@ def subtract_vector(a, b):
     return int(a[0] - b[0]), int(a[1] - b[1])
 
 
+def multiply_vector(vector, n):
+    return int(vector[0] * n), int(vector[1] * n)
+
+
+def divide_vector(vector, n):
+    return int(vector[0] // n), int(vector[0] // n)
+
+
 def vector_equality(a, b):
     return a[0] == b[0] and a[1] == b[1]
 

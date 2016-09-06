@@ -1,4 +1,4 @@
-from util import jsonmanager, helpers
+from util import jsonmanager
 
 
 class Map:
@@ -16,18 +16,14 @@ class Map:
         tiles = tile_map_data['Tiles']
 
         for tile_data in tiles:
-            tile_id = tile_data['Id']
-            tile_type = tile_data['Type']
-
-            tile = Tile(tile_id, tile_type)
-            tile_map.add_tile(tile)
+            tile_map.add_tile(tile_data['Type'])
 
         return tile_map
 
     def __init__(self, width, height):
         self.width = width
         self.height = height
-        self.tile_list = []
+        self.tile_array = []
 
     def id_to_coord(self, tile_id):
         y = tile_id // self.width
@@ -37,14 +33,8 @@ class Map:
     def coord_to_id(self, coord):
         return coord[1] * self.width + coord[0]
 
-    def add_tile(self, tile):
-        self.tile_list.append(tile)
-
-    def get_tile(self, coord):
-        for tile in self.tile_list:
-            if helpers.vector_equality(self.id_to_coord(tile.tile_id), coord):
-                return tile
-        return None
+    def add_tile(self, tile_type):
+        self.tile_array.append(tile_type)
 
     def in_bounds(self, coord):
         x = coord[0]
@@ -55,6 +45,15 @@ class Map:
 
         return x in valid_x_range and y in valid_y_range
 
+    def get_tile_type(self, pos):
+        if not self.in_bounds(pos):
+            return None
+
+        tile_id = self.coord_to_id(pos)
+        return self.tile_array[tile_id]
+
+    def tile_count(self):
+        return len(self.tile_array)
 
 # TODO:
 # since ids are sequential this data could be stored as an array

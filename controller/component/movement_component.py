@@ -1,4 +1,4 @@
-from util import helpers, logger
+from util import helpers, logger, configuration
 from controller.component import Component
 
 
@@ -23,12 +23,8 @@ class MovementComponent(Component):
         super().start()
         overworld = self.scene.find_entity('overworld')
         self.tile_map_component = overworld.get_component('tile map')
-
         self.player = self.scene.find_entity('player')
-
         self.input_component = self.player.get_component('player input')
-
-        self.position = self.tile_map_component.pixel_to_tile((self.entity.x, self.entity.y))
 
     def update(self):
         super().update()
@@ -63,15 +59,13 @@ class MovementComponent(Component):
         direction_vector = helpers.direction_to_direction_vector(direction)
 
         next_tile_pos = helpers.add_vectors(self.position, direction_vector)
-        next_tile_pos = int(next_tile_pos[0]), int(next_tile_pos[1])
-
-        next_tile = self.tile_map_component.get_tile(next_tile_pos)
-
-        if next_tile.tile_type == 'collision':
-            return
 
         if not self.tile_map_component.in_bounds(next_tile_pos):
             logger.log('can\'t go that way!')
+            return
+
+        next_tile_type = self.tile_map_component.get_tile_type(next_tile_pos)
+        if next_tile_type == 'collision':
             return
 
         self.target_pos = next_tile_pos
@@ -81,14 +75,7 @@ class MovementComponent(Component):
         move towards target based on movement speed
         :return:
         """
-        own_pixel_pos = (self.entity.x, self.entity.y)
-        target_pixel_pos = self.tile_map_component.tile_to_pixel(self.target_pos)
-
-        # You have reached your destination
-
-        target_reached = helpers.vector_equality(own_pixel_pos, target_pixel_pos)
-
-        if target_reached:
+        if self.target_reached():
             self.position = self.target_pos
             self.target_pos = None
 
@@ -100,3 +87,9 @@ class MovementComponent(Component):
 
             self.entity.x += direction_vector[0] * self.movement_speed
             self.entity.y += direction_vector[1] * self.movement_speed
+
+    def target_reached(self):
+        own_pixel_pos = self.entity.x, self.entity.y
+        target_pixel_pos = helpers.multiply_vector(self.target_pos, configuration.tile_size)
+
+        return helpers.vector_equality(own_pixel_pos, target_pixel_pos)

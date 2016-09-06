@@ -4,4 +4,3 @@ from controller.component.movement_component import MovementComponent
 from controller.component.input_component import InputComponent
 from controller.component.player_input_component import PlayerInputComponent
 from controller.component.tile_map_component import TileMapComponent
-from controller.component.tile_component import TileComponent

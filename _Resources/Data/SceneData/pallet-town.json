@@ -21,8 +21,8 @@
     },
     {
       "Name":"player",
-      "X":160,
-      "Y":160,
+      "X":10,
+      "Y":10,
       "Components":[
         {
           "Type":"GraphicsComponent",
