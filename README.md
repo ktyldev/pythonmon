@@ -14,6 +14,7 @@ Various pieces of configuration can be found in `_config.cfg`. It is not recomme
 
 * **edit tiles in editor mode**
 * **implement some sort of testing framework**
+* logging levels
 * rename modules to make more sense (suggestions very welcome)
 * implement instruction set for building scenes
 * remove binaries from repo

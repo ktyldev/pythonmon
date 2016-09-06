@@ -37,23 +37,23 @@ class Scene:
         self.cont_input = 'none'
 
         while not self.ready_to_start():
-            logger.log('preparing to start:')
+            logger.log('preparing to start entities...')
             entities_to_start = []
             for ent in self.entities:
                 if not ent.is_started():
                     entities_to_start.append(ent)
-                    logger.log('  ' + ent.name)
+            logger.log(str(len(entities_to_start)) + ' entities ready to start.')
 
-            logger.log('starting:')
+            logger.log('starting...')
             for entity in entities_to_start:
-                logger.log('  ' + entity.name)
                 try:
                     entity.start()
                 except Exception as e:
                     logger.log('could not start entity. Logging error:')
                     logger.log(e)
 
-        logger.log('started all entities :)')
+        log_string = str.format('started {0} entities :)', len(self.entities))
+        logger.log(log_string)
 
     def update(self, event_input, cont_input):
         self.event_input = event_input

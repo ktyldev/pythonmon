@@ -14,8 +14,6 @@ class Entity:
         self.components = []
         self.direction = None
 
-        logger.log(self.name + ' initialised at ' + str(self.x) + ", " + str(self.y))
-
     def get_component(self, component_type):
         """
         return component of given type
