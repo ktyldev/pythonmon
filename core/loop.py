@@ -49,7 +49,7 @@ class Loop:
         self.scene = scene.SceneManager.load_scene(scene_name)
 
 
-class TestLoop(Loop):
+class EditorLoop(Loop):
     def __init__(self):
         super().__init__()
         self.gui = gui.Gui()
@@ -83,14 +83,6 @@ class TestLoop(Loop):
         self.scene.start()
         self.tick_method = self.tick
         super().run()
-
-
-class EditorGameLoop(Loop):
-    def __init__(self):
-        super().__init__()
-        self.gui = gui.Gui()
-
-        # input setup
 
 
 class DefaultGameLoop(Loop):

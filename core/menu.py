@@ -66,7 +66,7 @@ def run_loop(game_loop):
 
 
 def run_editor():
-    run_loop(loop.TestLoop())
+    run_loop(loop.EditorLoop())
 
 
 def run_game():
