@@ -51,8 +51,7 @@ class Scene:
                     debug.log('could not start entity. Logging error:')
                     debug.log(e)
 
-        log_string = str.format('started {0} entities :)', len(self.entities))
-        debug.log(log_string)
+        debug.log('started {0} entities :)'.format(len(self.entities)))
 
     def update(self, event_input, cont_input):
         self.event_input = event_input

@@ -1,4 +1,4 @@
-from util import configuration
+from util import configuration, helpers
 
 
 class Entity:
@@ -52,4 +52,8 @@ class Entity:
             if not component.started:
                 return False
         return True
+
+    def get_world_pos(self):
+        pos = self.x, self.y
+        return helpers.divide_vector(pos, configuration.tile_size)
 
