@@ -1,5 +1,5 @@
 import pygame
-from util import configuration, logger, helpers
+from util import configuration, debug, helpers
 from model import tile
 
 
@@ -31,7 +31,7 @@ class Overlay:
                         self.draw_tile(screen_pos, colour)
 
             else:
-                logger.log('no tile map to draw')
+                debug.log_error('no tile map to draw')
         if self.draw_mouse:
             pygame.draw.circle(self.screen, (0, 0, 0), pygame.mouse.get_pos(), 5)
 

@@ -1,4 +1,4 @@
-from util import helpers, logger, configuration
+from util import helpers, debug, configuration
 from controller.component import Component
 
 
@@ -61,7 +61,7 @@ class MovementComponent(Component):
         next_tile_pos = helpers.add_vectors(self.position, direction_vector)
 
         if not self.tile_map_component.in_bounds(next_tile_pos):
-            logger.log('can\'t go that way!')
+            debug.log('can\'t go that way!')
             return
 
         next_tile_type = self.tile_map_component.get_tile_type(next_tile_pos)

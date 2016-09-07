@@ -1,5 +1,5 @@
 import controller.component
-from util import jsonmanager, logger, configuration
+from util import jsonmanager, debug, configuration
 from view.entity import Entity
 
 
@@ -27,7 +27,7 @@ class Scene:
 
                     entity.add_component(component)
                 except AttributeError:
-                    logger.log(component_data["Type"] + " not recognised :/")
+                    debug.log(component_data["Type"] + " not recognised :/")
 
             self.entities.append(entity)
 
@@ -36,23 +36,23 @@ class Scene:
         self.cont_input = 'none'
 
         while not self.ready_to_start():
-            logger.log('preparing to start entities...')
+            debug.log('preparing to start entities...')
             entities_to_start = []
             for ent in self.entities:
                 if not ent.is_started():
                     entities_to_start.append(ent)
-            logger.log(str(len(entities_to_start)) + ' entities ready to start.')
+            debug.log(str(len(entities_to_start)) + ' entities ready to start.')
 
-            logger.log('starting...')
+            debug.log('starting...')
             for entity in entities_to_start:
                 try:
                     entity.start()
                 except Exception as e:
-                    logger.log('could not start entity. Logging error:')
-                    logger.log(e)
+                    debug.log('could not start entity. Logging error:')
+                    debug.log(e)
 
         log_string = str.format('started {0} entities :)', len(self.entities))
-        logger.log(log_string)
+        debug.log(log_string)
 
     def update(self, event_input, cont_input):
         self.event_input = event_input

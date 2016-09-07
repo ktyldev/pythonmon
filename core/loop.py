@@ -1,7 +1,7 @@
 import pygame
 
 from core import gui, input, scene, overlay
-from util import jsonmanager, logger, configuration
+from util import jsonmanager, debug, configuration
 
 
 def add_input_handlers(config_name):
@@ -34,11 +34,11 @@ class Loop:
 
     def run(self):
         if self.tick_method is None:
-            logger.log('no assigned tick method')
+            debug.log('no assigned tick method')
             return
         self.setup()
         self.total_frames = 0
-        logger.log('starting main loop execution')
+        debug.log('starting main loop execution')
         while True:
             self.tick_method()
             self.clock.tick(configuration.clock_tick)
@@ -67,18 +67,18 @@ class EditorLoop(Loop):
         mouse_input = input.tick('mouse')
         if mouse_input[0] != self.last_tick_mouse:
             if mouse_input[0] == 'none':
-                logger.log('mouse button up')
+                debug.log('mouse button up')
                 self.overlay.draw_mouse = False
             else:
-                logger.log('mouse button down')
-                logger.log(mouse_input[0] + ' ' + str(mouse_input[1]))
+                debug.log('mouse button down')
+                debug.log(mouse_input[0] + ' ' + str(mouse_input[1]))
                 self.overlay.draw_mouse = True
 
         self.last_tick_mouse = mouse_input[0]
 
     def run(self):
         if self.scene is None:
-            logger.log('scene not set!')
+            debug.log('scene not set!')
             return
         self.scene.start()
         self.tick_method = self.tick
@@ -103,7 +103,7 @@ class DefaultGameLoop(Loop):
 
     def run(self):
         if self.scene is None:
-            logger.log('scene not set!')
+            debug.log('scene not set!')
             return
         self.scene.start()
         self.gui.set_focus('player')

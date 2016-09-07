@@ -1,7 +1,7 @@
 import sys
 
 from core import loop
-from util import jsonmanager, logger
+from util import jsonmanager, debug
 
 
 def make_console_menu(name):
@@ -28,8 +28,8 @@ class ConsoleMenuItem:
         try:
             getattr(sys.modules[__name__], self.action)()
         except AttributeError as error:
-            logger.log('Something went wrong :(')
-            logger.log(error.args)
+            debug.log('Something went wrong :(')
+            debug.log(error.args)
             raise error
 
 
