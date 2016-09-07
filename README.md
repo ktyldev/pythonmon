@@ -12,15 +12,29 @@ Various pieces of configuration can be found in `_config.cfg`. It is not recomme
 
 ## To Do
 
-* **edit tiles in editor mode**
-* **implement some sort of testing framework**
-* logging levels
+### High Priority
+
+* combat
+* animation
+* NPCs
+* pause menu
+
+### Middle-ish Priority
+
+* flesh out editor mode (edit scenes, tiles)
+* implement some sort of testing framework
+
+### Low Priority
+
 * rename modules to make more sense (suggestions very welcome)
-* implement instruction set for building scenes
 * remove binaries from repo
 * optimise map data file layout (it's horrendously inefficient)
 
 ## In Progress
+
+* logging levels
+
+## Back burner
 
 * game/editor loop
 * player movement (implement running)
