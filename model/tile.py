@@ -2,6 +2,8 @@ from util import jsonmanager
 
 
 class Map:
+    current = None
+
     @staticmethod
     def from_data(map_name):
         folder = '_Resources/Data/MapData/'
@@ -24,6 +26,7 @@ class Map:
         self.width = width
         self.height = height
         self.tile_array = []
+        Map.current = self
 
     def id_to_coord(self, tile_id):
         y = tile_id // self.width
@@ -55,10 +58,5 @@ class Map:
     def tile_count(self):
         return len(self.tile_array)
 
-# TODO:
-# since ids are sequential this data could be stored as an array
-# without too much hassle
-class Tile:
-    def __init__(self, tile_id, tile_type):
-        self.tile_id = tile_id
-        self.tile_type = tile_type
+    def get_tiles(self):
+        return self.tile_array

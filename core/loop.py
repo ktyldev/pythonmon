@@ -1,6 +1,6 @@
 import pygame
 
-from core import gui, input, scene
+from core import gui, input, scene, overlay
 from util import jsonmanager, logger, configuration
 
 
@@ -42,6 +42,7 @@ class Loop:
         while True:
             self.tick_method()
             self.clock.tick(configuration.clock_tick)
+            pygame.display.flip()
             self.total_frames += 1
 
     def set_scene(self, scene_name):
@@ -52,6 +53,7 @@ class TestLoop(Loop):
     def __init__(self):
         super().__init__()
         self.gui = gui.Gui()
+        self.overlay = overlay.Overlay(self.gui.screen)
 
         add_input_handlers('test-mouse-input')
 
@@ -60,13 +62,17 @@ class TestLoop(Loop):
     def tick(self):
         pygame.event.pump()
         self.gui.draw()
+        self.overlay.draw()
+
         mouse_input = input.tick('mouse')
         if mouse_input[0] != self.last_tick_mouse:
             if mouse_input[0] == 'none':
                 logger.log('mouse button up')
+                self.overlay.draw_mouse = False
             else:
                 logger.log('mouse button down')
                 logger.log(mouse_input[0] + ' ' + str(mouse_input[1]))
+                self.overlay.draw_mouse = True
 
         self.last_tick_mouse = mouse_input[0]
 

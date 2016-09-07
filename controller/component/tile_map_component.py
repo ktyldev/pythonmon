@@ -1,4 +1,5 @@
 import model.tile as tile_model
+
 from controller.component import Component
 from util import configuration
 from view.entity import Entity

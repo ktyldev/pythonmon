@@ -52,3 +52,4 @@ class Entity:
             if not component.started:
                 return False
         return True
+

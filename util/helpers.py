@@ -32,3 +32,12 @@ def direction_to_direction_vector(direction):
         return 0, 0
     else:
         raise Exception('not a valid direction!')
+
+
+def colour_from_tile_type(tile_type):
+    if tile_type == 'collision':
+        return 255, 0 ,0
+    elif tile_type == 'surf':
+        return 0, 255, 0
+    else:
+        return None
