@@ -1,7 +1,6 @@
 import controller.component
-
-from controller.entity import Entity
 from util import jsonmanager, logger, configuration
+from view.entity import Entity
 
 
 class Scene:

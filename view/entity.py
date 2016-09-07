@@ -1,5 +1,6 @@
 from util import configuration
 
+
 class Entity:
     """
     representation for objects in the game world, container for components
