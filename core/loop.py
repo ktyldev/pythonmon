@@ -10,15 +10,7 @@ def add_input_handlers(config_name):
 
     mapping_objects = input_config['EventMappings']
     for mapping_object in mapping_objects:
-        name = mapping_object['Name']
-        mappings = mapping_object['Mappings']
-
-        # TODO: make this less gross
-        input_type = input_config['Type']
-        if input_type == 'keyboard':
-            input.add_keyboard_handler(name, mappings)
-        elif input_type == 'mouse':
-            input.add_mouse_handler(name, mappings)
+        input.add_handler(mapping_object)
 
 
 class Loop:
@@ -65,14 +57,17 @@ class EditorLoop(Loop):
         self.overlay.draw()
 
         mouse_input = input.tick('mouse')
+
         if mouse_input[0] != self.last_tick_mouse:
-            if mouse_input[0] == 'none':
-                debug.log('mouse button up')
-                self.overlay.draw_mouse = False
-            else:
+
+            mouse_changed = mouse_input[0] != 'none'
+            self.overlay.draw_mouse = mouse_changed
+
+            if mouse_changed:
                 debug.log('mouse button down')
                 debug.log(mouse_input[0] + ' ' + str(mouse_input[1]))
-                self.overlay.draw_mouse = True
+            else:
+                debug.log('mouse button up')
 
         self.last_tick_mouse = mouse_input[0]
 

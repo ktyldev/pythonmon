@@ -9,13 +9,17 @@ def tick(name):
     return handlers[name].tick()
 
 
-def add_keyboard_handler(name, mappings):
-    handler = KeyboardInputHandler(mappings)
-    handlers[name] = handler
+def add_handler(handler_mapping_object):
+    name = handler_mapping_object['Name']
+    mappings = handler_mapping_object['Mappings']
+    input_type = handler_mapping_object['Type']
 
+    handler = None
+    if input_type == 'keyboard':
+        handler = KeyboardInputHandler(mappings)
+    elif input_type == 'mouse':
+        handler = MouseInputHandler(mappings)
 
-def add_mouse_handler(name, mappings):
-    handler = MouseInputHandler(mappings)
     handlers[name] = handler
 
 
